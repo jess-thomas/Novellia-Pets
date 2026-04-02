@@ -1,5 +1,17 @@
 import { Stack } from "expo-router";
 
 export default function RootLayout() {
-  return <Stack />;
+  return (
+    <Stack>
+      <Stack.Screen
+        name="welcome/WelcomeScreen"
+        options={{ title: "Novellia Pets" }}
+      />
+      <Stack.Screen name="index" options={{ title: "Novellia Pets" }} />
+      <Stack.Screen
+        name="pets/PetsScreen"
+        options={{ title: "Novellia Pets" }}
+      />
+    </Stack>
+  );
 }
