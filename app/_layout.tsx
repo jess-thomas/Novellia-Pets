@@ -12,6 +12,7 @@ export default function RootLayout() {
         name="pets/PetsScreen"
         options={{ title: "Novellia Pets" }}
       />
+      <Stack.Screen name="pet/PetScreen" options={{ title: "Novellia Pets" }} />
     </Stack>
   );
 }
