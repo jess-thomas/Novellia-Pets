@@ -2,6 +2,7 @@ import { SET_LOG_IN, SET_USERNAME } from "./welcomeUtils";
 const initialState = {
   username: "",
   isLoggedIn: false,
+  logIn: {},
 };
 
 const welcomeReducer = (state = initialState, action) => {
@@ -14,7 +15,7 @@ const welcomeReducer = (state = initialState, action) => {
     case SET_LOG_IN:
       return {
         ...state,
-        isLoggedIn: action.payload,
+        logIn: action.payload,
       };
     default:
       return state;

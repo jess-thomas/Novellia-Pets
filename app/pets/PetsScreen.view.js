@@ -1,7 +1,11 @@
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { Button, FlatList, StyleSheet, Text, View } from "react-native";
 import Item from "./Item";
 
-export default function PetsScreenView({ pets, navigateToDetailScreen }) {
+export default function PetsScreenView({
+  pets,
+  onDetailPress,
+  addNewPetPress,
+}) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Overview of your Pets</Text>
@@ -11,7 +15,7 @@ export default function PetsScreenView({ pets, navigateToDetailScreen }) {
           <Item
             name={item.name}
             type={item.type}
-            onDetailPress={navigateToDetailScreen}
+            onDetailPress={onDetailPress}
             id={item.id}
           />
         )}
@@ -19,6 +23,14 @@ export default function PetsScreenView({ pets, navigateToDetailScreen }) {
         ListEmptyComponent={<Text>No results</Text>}
         ItemSeparatorComponent={<View style={{ height: 5, margin: 5 }} />}
       />
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Add a Pet"
+          color={"#052b53"}
+          style={styles.button}
+          onPress={() => addNewPetPress()}
+        />
+      </View>
     </View>
   );
 }
@@ -27,11 +39,20 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fbfaf261",
     flex: 1,
+    marginBottom: 30,
   },
   title: {
     fontSize: 24,
     fontWeight: "bold",
     marginVertical: 20,
     alignSelf: "center",
+  },
+  button: {
+    borderRadius: 15,
+  },
+  buttonContainer: {
+    padding: 10,
+    borderRadius: 15,
+    width: "50%",
   },
 });
