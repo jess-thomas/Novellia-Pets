@@ -17,6 +17,7 @@ export default function PetsScreenView({
   breed,
   setBreed,
   savePress,
+  deletePress,
 }) {
   return (
     <ScrollView>
@@ -72,6 +73,12 @@ export default function PetsScreenView({
             style={styles.button}
             onPress={() => savePress()}
           />
+          <Button
+            title="Delete"
+            color={"#531805"}
+            style={styles.deleteButton}
+            onPress={() => deletePress()}
+          />
         </View>
       </View>
     </ScrollView>
@@ -99,6 +106,12 @@ const styles = StyleSheet.create({
   },
   button: {
     borderRadius: 15,
+    flex: 1,
+  },
+  deleteButton: {
+    borderRadius: 15,
+    marginLeft: 10,
+    flex: 1,
   },
   buttonContainer: {
     padding: 10,
@@ -106,5 +119,7 @@ const styles = StyleSheet.create({
     width: "50%",
     alignSelf: "center",
     marginBottom: 50,
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });

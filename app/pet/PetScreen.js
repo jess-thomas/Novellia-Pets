@@ -1,25 +1,33 @@
-import { useState, useEffect } from "react";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { useEffect, useState } from "react";
 import PetScreenView from "./PetScreen.view";
-import { addPet } from "./petApi";
-import { useLocalSearchParams } from 'expo-router';
+import { addPet, deletePet } from "./petApi";
 
 export default function PetScreen() {
+  const router = useRouter();
   const [petName, setPetName] = useState("");
   const [breed, setBreed] = useState("");
   const [animalType, setAnimalType] = useState("");
   const [dob, setDOB] = useState("10/02/1990");
   const params = useLocalSearchParams();
+  const [id] = useState(params?.id ?? null);
 
-  useEffect(()=>{
-    if(!!params?.id){
-        console.warn("attempting to get details");
-        console.warn(params?.id)
+  useEffect(() => {
+    if (!!params?.id) {
+      console.warn("attempting to get details");
+      console.warn(params?.id);
     }
-  },[params]);
+  }, [params]);
 
   const savePress = async () => {
     //save logic to add to db
     const response = await addPet(petName, animalType, dob, breed);
+    router.push({ pathname: `/pets/PetsScreen` });
+  };
+
+  const deletePress = async () => {
+    const response = await deletePet(id);
+    router.push({ pathname: `/pets/PetsScreen` });
   };
 
   return (
@@ -31,6 +39,7 @@ export default function PetScreen() {
       animalType={animalType}
       setAnimalType={setAnimalType}
       savePress={savePress}
+      deletePress={deletePress}
     />
   );
 }
