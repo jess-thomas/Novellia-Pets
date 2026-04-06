@@ -5,6 +5,8 @@ import { getPets } from "./petsApi";
 
 export default function PetsScreen() {
   const [pets, setPets] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     (async () => {
       const response = await getPets();
@@ -13,11 +15,18 @@ export default function PetsScreen() {
     })();
   }, []);
 
+  const onRefresh = async () => {
+    setIsLoading(true);
+    const response = await getPets();
+    console.warn(response);
+    setPets(response);
+    setIsLoading(false);
+  };
+
   const router = useRouter();
 
   const onDetailPress = (id) => {
-    // router.push(`/pets/${pet.id}`);
-    router.push({ pathname: `/pet/PetScreen`, params: { id: 1 } });
+    router.push({ pathname: `/pet/PetScreen`, params: { id } });
   };
 
   const addNewPetPress = () => {
@@ -28,6 +37,8 @@ export default function PetsScreen() {
       pets={pets}
       onDetailPress={onDetailPress}
       addNewPetPress={addNewPetPress}
+      onRefresh={onRefresh}
+      isLoading={isLoading}
     />
   );
 }

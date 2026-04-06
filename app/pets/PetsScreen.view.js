@@ -1,10 +1,19 @@
-import { Button, FlatList, StyleSheet, Text, View } from "react-native";
+import {
+  Button,
+  FlatList,
+  RefreshControl,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import Item from "./Item";
 
 export default function PetsScreenView({
   pets,
   onDetailPress,
   addNewPetPress,
+  isLoading,
+  onRefresh,
 }) {
   return (
     <View style={styles.container}>
@@ -19,6 +28,9 @@ export default function PetsScreenView({
       </View>
       <FlatList
         data={pets}
+        refreshControl={
+          <RefreshControl refreshing={isLoading} onRefresh={onRefresh} />
+        }
         renderItem={({ item }) => (
           <Item
             name={item.name}
