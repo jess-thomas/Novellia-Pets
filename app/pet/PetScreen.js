@@ -1,7 +1,7 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import PetScreenView from "./PetScreen.view";
-import { addPet, deletePet } from "./petApi";
+import { addPet, deletePet, editPet, getPetDetails } from "./petApi";
 
 export default function PetScreen() {
   const router = useRouter();
@@ -14,20 +14,31 @@ export default function PetScreen() {
 
   useEffect(() => {
     if (!!params?.id) {
-      console.warn("attempting to get details");
-      console.warn(params?.id);
+      (async () => {
+        const response = await getPetDetails(id);
+        console.warn(response);
+        setPetName(response.name);
+        setAnimalType(response.type);
+        setDOB(response.dob);
+        setBreed(response.breed);
+      })();
     }
-  }, [params]);
+  }, []);
 
   const savePress = async () => {
     //save logic to add to db
-    const response = await addPet(petName, animalType, dob, breed);
-    router.push({ pathname: `/pets/PetsScreen` });
+    let response;
+    if (!!id) {
+      response = await editPet(id, petName, animalType, dob, breed);
+    } else {
+      response = await addPet(petName, animalType, dob, breed);
+    }
+    router.dismissTo({ pathname: `/pets/PetsScreen` });
   };
 
   const deletePress = async () => {
     const response = await deletePet(id);
-    router.push({ pathname: `/pets/PetsScreen` });
+    router.dismissTo({ pathname: `/pets/PetsScreen` });
   };
 
   return (

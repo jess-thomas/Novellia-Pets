@@ -41,6 +41,24 @@ export async function deletePet(id) {
   return response.json();
 }
 
+export async function getPetDetails(id) {
+  const response = await fetch(`http://10.0.0.12:3000/pets/${id}`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error(
+      `get pet details API request failed (${response.status}): ${text}`,
+    );
+  }
+
+  return response.json();
+}
+
 export async function editPet(id, name, type, dob, breed) {
   const response = await fetch(`http://10.0.0.12:3000/pets/${id}`, {
     method: "PUT",
