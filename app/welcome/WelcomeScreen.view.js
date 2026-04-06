@@ -1,4 +1,5 @@
 import {
+    ActivityIndicator,
     StyleSheet,
     Text,
     TextInput,
@@ -9,7 +10,9 @@ import {
 export default function WelcomeScreenView({
   username,
   setUsername,
-  logInButtonPressed,
+  logInPress,
+  buttonTitle,
+  isLoading,
 }) {
   return (
     <View style={styles.container}>
@@ -20,12 +23,10 @@ export default function WelcomeScreenView({
         value={username}
         onChangeText={setUsername}
       />
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => logInButtonPressed()}
-      >
-        <Text style={styles.buttonText}>Log In</Text>
+      <TouchableOpacity style={styles.button} onPress={() => logInPress()}>
+        <Text style={styles.buttonText}>{buttonTitle}</Text>
       </TouchableOpacity>
+      {isLoading && <ActivityIndicator size="large" />}
     </View>
   );
 }
