@@ -6,6 +6,10 @@ export default function PetScreen() {
   const [breed, setBreed] = useState("");
   const [animalType, setAnimalType] = useState("");
 
+  const savePress = () => {
+    //save logic to add to db
+  };
+
   return (
     <PetScreenView
       petName={petName}
@@ -14,6 +18,7 @@ export default function PetScreen() {
       setBreed={setBreed}
       animalType={animalType}
       setAnimalType={setAnimalType}
+      savePress={savePress}
     />
   );
 }

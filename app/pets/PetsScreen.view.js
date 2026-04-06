@@ -9,6 +9,14 @@ export default function PetsScreenView({
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Overview of your Pets</Text>
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Add a Pet"
+          color={"#052b53"}
+          style={styles.button}
+          onPress={() => addNewPetPress()}
+        />
+      </View>
       <FlatList
         data={pets}
         renderItem={({ item }) => (
@@ -23,14 +31,6 @@ export default function PetsScreenView({
         ListEmptyComponent={<Text>No results</Text>}
         ItemSeparatorComponent={<View style={{ height: 5, margin: 5 }} />}
       />
-      <View style={styles.buttonContainer}>
-        <Button
-          title="Add a Pet"
-          color={"#052b53"}
-          style={styles.button}
-          onPress={() => addNewPetPress()}
-        />
-      </View>
     </View>
   );
 }

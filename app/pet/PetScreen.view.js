@@ -8,6 +8,7 @@ export default function PetsScreenView({
   setPetName,
   breed,
   setBreed,
+  savePress,
 }) {
   return (
     <View style={styles.container}>
@@ -38,11 +39,13 @@ export default function PetsScreenView({
             recordType: "Vaccine",
             name: "Rabies",
             dateAdministered: "Oct 8th 2022",
+            id: "5",
           },
           {
             recordType: "Vaccine",
             name: "HeartWorm",
             dateAdministered: "Oct 8th 2025",
+            id: 6,
           },
         ]}
         renderItem={({ item }) => (
@@ -52,6 +55,14 @@ export default function PetsScreenView({
         ListEmptyComponent={<Text>No results</Text>}
         ItemSeparatorComponent={<View style={{ height: 5, margin: 5 }} />}
       />
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Save"
+          color={"#052b53"}
+          style={styles.button}
+          onPress={() => savePress()}
+        />
+      </View>
     </View>
   );
 }

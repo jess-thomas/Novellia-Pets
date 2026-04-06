@@ -9,7 +9,6 @@ export async function login(username) {
       username: username,
     }),
   });
-  console.warn();
 
   if (!response.ok) {
     const text = await response.text();

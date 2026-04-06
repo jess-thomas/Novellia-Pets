@@ -1,21 +1,18 @@
 import { useRouter } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PetsScreenView from "./PetsScreen.view";
+import { getPets } from "./petsApi";
 
 export default function PetsScreen() {
-  const [pets] = useState([
-    {
-      id: 0,
-      name: "Kitty",
-      type: "Cat",
-      history: [
-        { name: "Vaccination", type: "Vaccine", id: 0 },
-        { name: "Rabies", type: "Vaccine", id: 1 },
-      ],
-    },
-    { id: 1, name: "Doggo", type: "Dog" },
-    { id: 2, name: "Birdy", type: "Bird" },
-  ]);
+  const [pets, setPets] = useState([]);
+  useEffect(() => {
+    (async () => {
+      const response = await getPets();
+      console.warn(response);
+      setPets(response);
+    })();
+  }, []);
+
   const router = useRouter();
 
   const onDetailPress = (id) => {
