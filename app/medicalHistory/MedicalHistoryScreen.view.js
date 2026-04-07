@@ -17,6 +17,14 @@ export default function MedicalHistoryScreenView({
   setAllergyName,
   allergySeverity,
   setAllergySeverity,
+  medicationName,
+  setMedicationName,
+  setDosage,
+  dosage,
+  instructions,
+  setInstructions,
+  onDeletePress,
+  onSavePress,
 }) {
   const _renderMedicalFormPicker = () => (
     <View style={styles.textInput}>
@@ -72,8 +80,30 @@ export default function MedicalHistoryScreenView({
   );
 
   const _renderMedicationForm = () => (
-    <View style={styles.textInput}>
-      <Text>Medication info</Text>
+    <View style={styles.textContainer}>
+      <Text style={styles.textTitle}>Name of Medication</Text>
+      <TextInput
+        placeholder="Name..."
+        style={styles.textInput}
+        value={medicationName}
+        onChangeText={setMedicationName}
+      />
+      <Text style={styles.textTitle}>Dosage</Text>
+      <TextInput
+        placeholder="e.g. 3.45mg..."
+        style={styles.textInput}
+        value={dosage}
+        onChangeText={setDosage}
+      />
+      <Text style={styles.textTitle}>Instructions</Text>
+      <TextInput
+        placeholder="give twice a day morning and night..."
+        style={styles.paragraph}
+        value={instructions}
+        onChangeText={setInstructions}
+        multiline
+        numberOfLines={4}
+      />
     </View>
   );
 
@@ -90,13 +120,13 @@ export default function MedicalHistoryScreenView({
             title="Save"
             color={"#052b53"}
             style={styles.button}
-            onPress={() => {}}
+            onPress={() => onSavePress()}
           />
           <Button
             title="Delete"
             color={"#531805"}
             style={styles.deleteButton}
-            onPress={() => {}}
+            onPress={() => onDeletePress()}
           />
         </View>
       </View>
@@ -107,7 +137,6 @@ export default function MedicalHistoryScreenView({
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fbfaf261",
-    flex: 1,
   },
   title: {
     fontSize: 24,
@@ -138,13 +167,23 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontSize: 18,
   },
-  textContainer: {
+  paragraph: {
     backgroundColor: "#f0f0f0",
     borderWidth: 2,
     borderColor: "#052b53",
     borderRadius: 8,
     marginHorizontal: 10,
     marginBottom: 10,
+    fontSize: 18,
+    height: "20%",
+  },
+  textContainer: {
+    backgroundColor: "#f0f0f0",
+    borderWidth: 2,
+    borderColor: "#052b53",
+    borderRadius: 8,
+    marginHorizontal: 10,
+    marginBottom: 50,
   },
   button: {
     borderRadius: 15,

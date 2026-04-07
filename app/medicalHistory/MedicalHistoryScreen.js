@@ -1,12 +1,26 @@
+import { useRouter, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import MedicalHistoryScreenView from "./MedicalHistoryScreen.view";
 
 export default function MedicalHistoryScreen() {
+  const router = useRouter();
+  const params = useLocalSearchParams();
   const [medicalFormType, setMedicalFormType] = useState("vaccine");
   const [vaccineName, setVaccineName] = useState("");
   const [vaccineDate, setVaccineDate] = useState("");
   const [allergyName, setAllergyName] = useState("");
   const [allergySeverity, setAllergySeverity] = useState("");
+  const [medicationName, setMedicationName] = useState("");
+  const [dosage, setDosage] = useState("");
+  const [instructions, setInstructions] = useState("");
+  const [id] = useState(params?.id ?? null);
+
+  const onSavePress = () => {
+    router.push({ pathname: `/pet/PetScreen`, params: { id } });
+  };
+  const onDeletePress = () => {
+    router.push({ pathname: `/pet/PetScreen`, params: { id } });
+  };
 
   return (
     <MedicalHistoryScreenView
@@ -18,6 +32,14 @@ export default function MedicalHistoryScreen() {
       setAllergyName={setAllergyName}
       setAllergySeverity={setAllergySeverity}
       allergySeverity={allergySeverity}
+      medicationName={medicationName}
+      setMedicationName={setMedicationName}
+      dosage={dosage}
+      setDosage={setDosage}
+      instructions={instructions}
+      setInstructions={setInstructions}
+      onSavePress={onSavePress}
+      onDeletePress={onDeletePress}
     />
   );
 }
