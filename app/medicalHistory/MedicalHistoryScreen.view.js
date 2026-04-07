@@ -25,6 +25,8 @@ export default function MedicalHistoryScreenView({
   setInstructions,
   onDeletePress,
   onSavePress,
+  vaccineDate,
+  setVaccineDate,
 }) {
   const _renderMedicalFormPicker = () => (
     <View style={styles.textInput}>
@@ -50,6 +52,12 @@ export default function MedicalHistoryScreenView({
       />
       <Text style={styles.textTitle}>Date Administered</Text>
       <Text style={styles.textTitle}>TO DO: add date picker</Text>
+      <TextInput
+        placeholder="Date"
+        style={styles.textInput}
+        value={vaccineDate}
+        onChangeText={setVaccineDate}
+      />
     </View>
   );
 

@@ -11,6 +11,9 @@ export default function PetScreen() {
   const [dob, setDOB] = useState("10/02/1990");
   const params = useLocalSearchParams();
   const [id] = useState(params?.id ?? null);
+  const [vaccines, setVaccines] = useState([]);
+  const [medicalHistory, setMedicalHistory] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (!!params?.id) {
@@ -21,9 +24,20 @@ export default function PetScreen() {
         setAnimalType(response.type);
         setDOB(response.dob);
         setBreed(response.breed);
+        setVaccines(response.vaccines);
+        setMedicalHistory([{ title: "Vaccines", data: response.vaccines }]);
       })();
     }
+    console.log(medicalHistory);
   }, []);
+
+  const onRefresh = async () => {
+    setIsLoading(true);
+    const response = await getPetDetails(id);
+    setVaccines(response.vaccines);
+    setMedicalHistory([{ title: "Vaccines", data: response.vaccines }]);
+    setIsLoading(false);
+  };
 
   const savePress = async () => {
     //save logic to add to db
@@ -59,6 +73,9 @@ export default function PetScreen() {
       savePress={savePress}
       deletePress={deletePress}
       addMedicalRecordPress={addMedicalRecordPress}
+      medicalHistory={medicalHistory}
+      isLoading={isLoading}
+      onRefresh={onRefresh}
     />
   );
 }

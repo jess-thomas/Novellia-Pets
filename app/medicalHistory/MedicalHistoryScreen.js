@@ -1,6 +1,7 @@
-import { useRouter, useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import MedicalHistoryScreenView from "./MedicalHistoryScreen.view";
+import { addVaccine } from "./medicalHistoryApi";
 
 export default function MedicalHistoryScreen() {
   const router = useRouter();
@@ -16,10 +17,11 @@ export default function MedicalHistoryScreen() {
   const [id] = useState(params?.id ?? null);
 
   const onSavePress = () => {
-    router.push({ pathname: `/pet/PetScreen`, params: { id } });
+    addVaccine(vaccineName, vaccineDate, id);
+    router.dismissTo({ pathname: `/pet/PetScreen`, params: { id } });
   };
   const onDeletePress = () => {
-    router.push({ pathname: `/pet/PetScreen`, params: { id } });
+    router.dismissTo({ pathname: `/pet/PetScreen`, params: { id } });
   };
 
   return (
@@ -40,6 +42,8 @@ export default function MedicalHistoryScreen() {
       setInstructions={setInstructions}
       onSavePress={onSavePress}
       onDeletePress={onDeletePress}
+      vaccineDate={vaccineDate}
+      setVaccineDate={setVaccineDate}
     />
   );
 }

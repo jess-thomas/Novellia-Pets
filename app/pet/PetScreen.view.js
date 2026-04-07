@@ -1,6 +1,7 @@
 import { Picker } from "@react-native-picker/picker";
 import {
   Button,
+  RefreshControl,
   ScrollView,
   SectionList,
   StyleSheet,
@@ -20,6 +21,9 @@ export default function PetsScreenView({
   savePress,
   deletePress,
   addMedicalRecordPress,
+  medicalHistory,
+  isLoading,
+  onRefresh,
 }) {
   const _renderAnimalType = () => (
     <View style={styles.textInput}>
@@ -56,9 +60,9 @@ export default function PetsScreenView({
           value={breed}
           onChangeText={setBreed}
         />
-        <Text style={styles.title}>Date of Birth</Text>
-        <Text style={styles.title}>Photo</Text>
-        <Text style={styles.title}>Medical History</Text>
+        <Text style={styles.textTitle}>Date of Birth</Text>
+        <Text style={styles.textTitle}>Photo</Text>
+        <Text style={[styles.textTitle, {alignSelf: 'center'}]}>Medical History</Text>
         <View style={styles.buttonContainer}>
           <Button
             title="Add Medical Record"
@@ -68,46 +72,30 @@ export default function PetsScreenView({
           />
         </View>
         <SectionList
-          sections={[
-            {
-              title: "Vaccines",
-              data: [
-                {
-                  recordType: "Vaccine",
-                  name: "Rabies",
-                  dateAdministered: "Oct 8th 2022",
-                  id: "5",
-                },
-                {
-                  recordType: "Vaccine",
-                  name: "HeartWorm",
-                  dateAdministered: "Oct 8th 2025",
-                  id: 6,
-                },
-              ],
-            },
-          ]}
+          sections={medicalHistory}
           renderItem={({ item }) => (
-            <Item name={item.name} type={item.recordType} />
+            <Item name={item.name} type={item?.dateAdministered} />
           )}
           keyExtractor={(item) => `KEY_${item.id}`}
           ListEmptyComponent={<Text>No results</Text>}
           renderSectionHeader={({ section: { title } }) => (
             <Text style={styles.textTitle}>{title}</Text>
           )}
+          refreshControl={
+            <RefreshControl refreshing={isLoading} onRefresh={onRefresh} />
+          }
           horizontal
         />
         <View style={styles.buttonContainer}>
           <Button
-            title="Save"
+            title="Save Pet"
             color={"#052b53"}
-            style={styles.button}
             onPress={() => savePress()}
           />
+          <View style={{ margin: 10 }} />
           <Button
-            title="Delete"
+            title="Delete Pet"
             color={"#531805"}
-            style={styles.deleteButton}
             onPress={() => deletePress()}
           />
         </View>
@@ -144,22 +132,11 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontSize: 18,
   },
-  button: {
-    borderRadius: 15,
-    flex: 1,
-  },
-  deleteButton: {
-    borderRadius: 15,
-    marginLeft: 10,
-    flex: 1,
-  },
   buttonContainer: {
     padding: 10,
     borderRadius: 15,
-    width: "50%",
-    alignSelf: "center",
-    marginBottom: 50,
+    margin: 25,
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "center",
   },
 });
