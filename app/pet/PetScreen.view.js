@@ -19,6 +19,7 @@ export default function PetsScreenView({
   setBreed,
   savePress,
   deletePress,
+  addMedicalRecordPress,
 }) {
   const _renderAnimalType = () => (
     <View style={styles.textInput}>
@@ -58,6 +59,14 @@ export default function PetsScreenView({
         <Text style={styles.title}>Date of Birth</Text>
         <Text style={styles.title}>Photo</Text>
         <Text style={styles.title}>Medical History</Text>
+        <View style={styles.buttonContainer}>
+          <Button
+            title="Add Medical Record"
+            color={"#052b53"}
+            style={styles.button}
+            onPress={() => addMedicalRecordPress()}
+          />
+        </View>
         <SectionList
           sections={[
             {

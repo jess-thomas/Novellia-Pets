@@ -41,6 +41,13 @@ export default function PetScreen() {
     router.dismissTo({ pathname: `/pets/PetsScreen` });
   };
 
+  const addMedicalRecordPress = () => {
+    router.push({
+      pathname: `/medicalHistory/MedicalHistoryScreen`,
+      params: { id },
+    });
+  };
+
   return (
     <PetScreenView
       petName={petName}
@@ -51,6 +58,7 @@ export default function PetScreen() {
       setAnimalType={setAnimalType}
       savePress={savePress}
       deletePress={deletePress}
+      addMedicalRecordPress={addMedicalRecordPress}
     />
   );
 }
