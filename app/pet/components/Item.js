@@ -1,9 +1,15 @@
 import { StyleSheet, Text, View } from "react-native";
-export default function Item({ name, type }) {
+export default function Item({ name, date, dosage, instructions }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{name}</Text>
-      <Text style={styles.subHeader}>Type: {type}</Text>
+      {!!date && (
+        <Text style={styles.subHeader}>Date Administered: {date}</Text>
+      )}
+      {!!dosage && <Text style={styles.subHeader}>Dosage: {dosage}</Text>}
+      {!!instructions && (
+        <Text style={styles.subHeader}>Instructions: {instructions}</Text>
+      )}
     </View>
   );
 }

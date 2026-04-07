@@ -20,3 +20,27 @@ export async function addVaccine(name, date, id) {
 
   return response.json();
 }
+
+export async function addMedication(name, dosage, instructions, id) {
+  const response = await fetch(`http://10.0.0.12:3000/pets/${id}/medications`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: name,
+      dosage: dosage,
+      instructions: instructions,
+    }),
+  });
+
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error(
+      `add medication API request failed (${response.status}): ${text}`,
+    );
+  }
+
+  return response.json();
+}

@@ -62,7 +62,9 @@ export default function PetsScreenView({
         />
         <Text style={styles.textTitle}>Date of Birth</Text>
         <Text style={styles.textTitle}>Photo</Text>
-        <Text style={[styles.textTitle, {alignSelf: 'center'}]}>Medical History</Text>
+        <Text style={[styles.textTitle, { alignSelf: "center" }]}>
+          Medical History
+        </Text>
         <View style={styles.buttonContainer}>
           <Button
             title="Add Medical Record"
@@ -74,7 +76,12 @@ export default function PetsScreenView({
         <SectionList
           sections={medicalHistory}
           renderItem={({ item }) => (
-            <Item name={item.name} type={item?.dateAdministered} />
+            <Item
+              name={item.name}
+              date={item?.dateAdministered}
+              dosage={item?.dosage}
+              inscructions={item?.instructions}
+            />
           )}
           keyExtractor={(item) => `KEY_${item.id}`}
           ListEmptyComponent={<Text>No results</Text>}

@@ -25,7 +25,11 @@ export default function PetScreen() {
         setDOB(response.dob);
         setBreed(response.breed);
         setVaccines(response.vaccines);
-        setMedicalHistory([{ title: "Vaccines", data: response.vaccines }]);
+        setMedicalHistory([
+          { title: "Vaccines", data: response.vaccines },
+          { title: "Medications", data: response.medications },
+          { title: "Allergies", data: response.allergies },
+        ]);
       })();
     }
     console.log(medicalHistory);
@@ -35,12 +39,15 @@ export default function PetScreen() {
     setIsLoading(true);
     const response = await getPetDetails(id);
     setVaccines(response.vaccines);
-    setMedicalHistory([{ title: "Vaccines", data: response.vaccines }]);
+    setMedicalHistory([
+      { title: "Vaccines", data: response.vaccines },
+      { title: "Medications", data: response.medications },
+      { title: "Allergies", data: response.allergies },
+    ]);
     setIsLoading(false);
   };
 
   const savePress = async () => {
-    //save logic to add to db
     let response;
     if (!!id) {
       response = await editPet(id, petName, animalType, dob, breed);
