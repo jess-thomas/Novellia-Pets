@@ -1,13 +1,13 @@
 import {
-    Button,
-    FlatList,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    View,
+  Button,
+  FlatList,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
 } from "react-native";
-import Item from "./Item";
+import Item from "./components/Item";
 
 export default function PetsScreenView({
   animalType,
@@ -22,18 +22,21 @@ export default function PetsScreenView({
   return (
     <ScrollView>
       <View style={styles.container}>
+        <Text style={styles.textTitle}>Name</Text>
         <TextInput
           placeholder="Name"
           style={styles.textInput}
           value={petName}
           onChangeText={setPetName}
         />
+        <Text style={styles.textTitle}>Animal Type</Text>
         <TextInput
           placeholder="Type"
           style={styles.textInput}
           value={animalType}
           onChangeText={setAnimalType}
         />
+        <Text style={styles.textTitle}>Breed</Text>
         <TextInput
           placeholder="Breed"
           style={styles.textInput}
@@ -96,13 +99,21 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     alignSelf: "center",
   },
+  textTitle: {
+    fontSize: 22,
+    fontWeight: "bold",
+    marginLeft: 18,
+    marginTop: 10,
+    color: "#052b53",
+  },
   textInput: {
     backgroundColor: "#f0f0f0",
     borderWidth: 2,
     borderColor: "#052b53",
-    padding: 10,
     borderRadius: 8,
-    margin: 18,
+    marginHorizontal: 10,
+    marginBottom: 10,
+    fontSize: 18,
   },
   button: {
     borderRadius: 15,

@@ -1,10 +1,10 @@
 import {
-    ActivityIndicator,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  ActivityIndicator,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
 
 export default function WelcomeScreenView({
@@ -35,6 +35,8 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fbfaf261",
     flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
   },
   title: {
     fontSize: 24,
@@ -49,12 +51,15 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 8,
     margin: 18,
+    fontSize: 20,
+    width: "80%",
   },
   button: {
     backgroundColor: "#052b53",
     padding: 10,
     borderRadius: 8,
     margin: 18,
+    width: "80%",
   },
   buttonText: {
     color: "#fff",

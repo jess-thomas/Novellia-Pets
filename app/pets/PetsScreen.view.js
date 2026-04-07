@@ -6,7 +6,7 @@ import {
   Text,
   View,
 } from "react-native";
-import Item from "./Item";
+import Item from "./components/Item";
 
 export default function PetsScreenView({
   pets,

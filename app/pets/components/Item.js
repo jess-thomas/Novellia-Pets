@@ -1,12 +1,14 @@
-import { StyleSheet, Text, TouchableHighlight, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 export default function Item({ name, type, onDetailPress, id }) {
   return (
-    <TouchableHighlight onPress={() => onDetailPress(id)}>
-      <View style={styles.container}>
-        <Text style={styles.title}>{name}</Text>
-        <Text style={styles.subHeader}>Type: {type}</Text>
-      </View>
-    </TouchableHighlight>
+    <View style={styles.container}>
+      <TouchableOpacity onPress={() => onDetailPress(id)}>
+        <View>
+          <Text style={styles.title}>{name}</Text>
+          <Text style={styles.subHeader}>Type: {type}</Text>
+        </View>
+      </TouchableOpacity>
+    </View>
   );
 }
 

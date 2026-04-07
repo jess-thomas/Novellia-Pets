@@ -8,17 +8,12 @@ export default function PetsScreen() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    (async () => {
-      const response = await getPets();
-      console.warn(response);
-      setPets(response);
-    })();
+    getPetsData();
   }, []);
 
-  const onRefresh = async () => {
+  const getPetsData = async () => {
     setIsLoading(true);
     const response = await getPets();
-    console.warn(response);
     setPets(response);
     setIsLoading(false);
   };
@@ -37,7 +32,7 @@ export default function PetsScreen() {
       pets={pets}
       onDetailPress={onDetailPress}
       addNewPetPress={addNewPetPress}
-      onRefresh={onRefresh}
+      onRefresh={getPetsData}
       isLoading={isLoading}
     />
   );
