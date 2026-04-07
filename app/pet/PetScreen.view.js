@@ -1,7 +1,8 @@
 import { Picker } from "@react-native-picker/picker";
 import {
   Button,
-  FlatList,
+  ScrollView,
+  SectionList,
   StyleSheet,
   Text,
   TextInput,
@@ -36,64 +37,73 @@ export default function PetsScreenView({
   );
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.textTitle}>Name</Text>
-      <TextInput
-        placeholder="Name"
-        style={styles.textInput}
-        value={petName}
-        onChangeText={setPetName}
-      />
-      <Text style={styles.textTitle}>Animal Type</Text>
-      {_renderAnimalType()}
-      <Text style={styles.textTitle}>Breed</Text>
-      <TextInput
-        placeholder="Breed"
-        style={styles.textInput}
-        value={breed}
-        onChangeText={setBreed}
-      />
-      <Text style={styles.title}>Date of Birth</Text>
-      <Text style={styles.title}>Photo</Text>
-      <Text style={styles.title}>Medical History</Text>
-      <FlatList
-        data={[
-          {
-            recordType: "Vaccine",
-            name: "Rabies",
-            dateAdministered: "Oct 8th 2022",
-            id: "5",
-          },
-          {
-            recordType: "Vaccine",
-            name: "HeartWorm",
-            dateAdministered: "Oct 8th 2025",
-            id: 6,
-          },
-        ]}
-        renderItem={({ item }) => (
-          <Item name={item.name} type={item.recordType} />
-        )}
-        keyExtractor={(item) => `KEY_${item.id}`}
-        ListEmptyComponent={<Text>No results</Text>}
-        ItemSeparatorComponent={<View style={{ height: 5, margin: 5 }} />}
-        horizontal
-      />
-      <View style={styles.buttonContainer}>
-        <Button
-          title="Save"
-          color={"#052b53"}
-          style={styles.button}
-          onPress={() => savePress()}
+    <ScrollView>
+      <View style={styles.container}>
+        <Text style={styles.textTitle}>Name</Text>
+        <TextInput
+          placeholder="Name"
+          style={styles.textInput}
+          value={petName}
+          onChangeText={setPetName}
         />
-        <Button
-          title="Delete"
-          color={"#531805"}
-          style={styles.deleteButton}
-          onPress={() => deletePress()}
+        <Text style={styles.textTitle}>Animal Type</Text>
+        {_renderAnimalType()}
+        <Text style={styles.textTitle}>Breed</Text>
+        <TextInput
+          placeholder="Breed"
+          style={styles.textInput}
+          value={breed}
+          onChangeText={setBreed}
         />
+        <Text style={styles.title}>Date of Birth</Text>
+        <Text style={styles.title}>Photo</Text>
+        <Text style={styles.title}>Medical History</Text>
+        <SectionList
+          sections={[
+            {
+              title: "Vaccines",
+              data: [
+                {
+                  recordType: "Vaccine",
+                  name: "Rabies",
+                  dateAdministered: "Oct 8th 2022",
+                  id: "5",
+                },
+                {
+                  recordType: "Vaccine",
+                  name: "HeartWorm",
+                  dateAdministered: "Oct 8th 2025",
+                  id: 6,
+                },
+              ],
+            },
+          ]}
+          renderItem={({ item }) => (
+            <Item name={item.name} type={item.recordType} />
+          )}
+          keyExtractor={(item) => `KEY_${item.id}`}
+          ListEmptyComponent={<Text>No results</Text>}
+          renderSectionHeader={({ section: { title } }) => (
+            <Text style={styles.textTitle}>{title}</Text>
+          )}
+          horizontal
+        />
+        <View style={styles.buttonContainer}>
+          <Button
+            title="Save"
+            color={"#052b53"}
+            style={styles.button}
+            onPress={() => savePress()}
+          />
+          <Button
+            title="Delete"
+            color={"#531805"}
+            style={styles.deleteButton}
+            onPress={() => deletePress()}
+          />
+        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -101,6 +111,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fbfaf261",
     flex: 1,
+    marginBottom: 30,
   },
   title: {
     fontSize: 24,
