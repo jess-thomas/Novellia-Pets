@@ -1,7 +1,7 @@
+import { Picker } from "@react-native-picker/picker";
 import {
   Button,
   FlatList,
-  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -19,72 +19,81 @@ export default function PetsScreenView({
   savePress,
   deletePress,
 }) {
+  const _renderAnimalType = () => (
+    <View style={styles.textInput}>
+      <Picker
+        selectedValue={animalType}
+        onValueChange={(itemValue) => setAnimalType(itemValue)}
+      >
+        <Picker.Item label="Dog" value="dog" />
+        <Picker.Item label="Cat" value="cat" />
+        <Picker.Item label="Bird" value="bird" />
+        <Picker.Item label="Bunny" value="bunny" />
+        <Picker.Item label="Horse" value="horse" />
+        <Picker.Item label="Lizard" value="lizard" />
+      </Picker>
+    </View>
+  );
+
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <Text style={styles.textTitle}>Name</Text>
-        <TextInput
-          placeholder="Name"
-          style={styles.textInput}
-          value={petName}
-          onChangeText={setPetName}
+    <View style={styles.container}>
+      <Text style={styles.textTitle}>Name</Text>
+      <TextInput
+        placeholder="Name"
+        style={styles.textInput}
+        value={petName}
+        onChangeText={setPetName}
+      />
+      <Text style={styles.textTitle}>Animal Type</Text>
+      {_renderAnimalType()}
+      <Text style={styles.textTitle}>Breed</Text>
+      <TextInput
+        placeholder="Breed"
+        style={styles.textInput}
+        value={breed}
+        onChangeText={setBreed}
+      />
+      <Text style={styles.title}>Date of Birth</Text>
+      <Text style={styles.title}>Photo</Text>
+      <Text style={styles.title}>Medical History</Text>
+      <FlatList
+        data={[
+          {
+            recordType: "Vaccine",
+            name: "Rabies",
+            dateAdministered: "Oct 8th 2022",
+            id: "5",
+          },
+          {
+            recordType: "Vaccine",
+            name: "HeartWorm",
+            dateAdministered: "Oct 8th 2025",
+            id: 6,
+          },
+        ]}
+        renderItem={({ item }) => (
+          <Item name={item.name} type={item.recordType} />
+        )}
+        keyExtractor={(item) => `KEY_${item.id}`}
+        ListEmptyComponent={<Text>No results</Text>}
+        ItemSeparatorComponent={<View style={{ height: 5, margin: 5 }} />}
+        horizontal
+      />
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Save"
+          color={"#052b53"}
+          style={styles.button}
+          onPress={() => savePress()}
         />
-        <Text style={styles.textTitle}>Animal Type</Text>
-        <TextInput
-          placeholder="Type"
-          style={styles.textInput}
-          value={animalType}
-          onChangeText={setAnimalType}
+        <Button
+          title="Delete"
+          color={"#531805"}
+          style={styles.deleteButton}
+          onPress={() => deletePress()}
         />
-        <Text style={styles.textTitle}>Breed</Text>
-        <TextInput
-          placeholder="Breed"
-          style={styles.textInput}
-          value={breed}
-          onChangeText={setBreed}
-        />
-        <Text style={styles.title}>Date of Birth</Text>
-        <Text style={styles.title}>Photo</Text>
-        <Text style={styles.title}>Medical History</Text>
-        <FlatList
-          data={[
-            {
-              recordType: "Vaccine",
-              name: "Rabies",
-              dateAdministered: "Oct 8th 2022",
-              id: "5",
-            },
-            {
-              recordType: "Vaccine",
-              name: "HeartWorm",
-              dateAdministered: "Oct 8th 2025",
-              id: 6,
-            },
-          ]}
-          renderItem={({ item }) => (
-            <Item name={item.name} type={item.recordType} />
-          )}
-          keyExtractor={(item) => `KEY_${item.id}`}
-          ListEmptyComponent={<Text>No results</Text>}
-          ItemSeparatorComponent={<View style={{ height: 5, margin: 5 }} />}
-          horizontal
-        />
-        <View style={styles.buttonContainer}>
-          <Button
-            title="Save"
-            color={"#052b53"}
-            style={styles.button}
-            onPress={() => savePress()}
-          />
-          <Button
-            title="Delete"
-            color={"#531805"}
-            style={styles.deleteButton}
-            onPress={() => deletePress()}
-          />
-        </View>
       </View>
-    </ScrollView>
+    </View>
   );
 }
 
