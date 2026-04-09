@@ -37,7 +37,6 @@ export default function PetScreen() {
   const onRefresh = async () => {
     setIsLoading(true);
     const response = await getPetDetails(id);
-    setVaccines(response.vaccines);
     setMedicalHistory([
       { title: "Vaccines", data: response.vaccines },
       { title: "Medications", data: response.medications },

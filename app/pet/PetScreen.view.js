@@ -4,7 +4,6 @@ import {
   Button,
   Image,
   RefreshControl,
-  ScrollView,
   SectionList,
   StyleSheet,
   Text,
@@ -66,82 +65,83 @@ export default function PetsScreenView({
     );
   };
 
-  return (
-    <ScrollView>
-      <View style={styles.container}>
-        <Image
-          source={require("./images/dog-placeholder.jpg")}
-          style={styles.image}
+  const _renderPetProfile = () => (
+    <View>
+      <Image
+        source={require("./images/dog-placeholder.jpg")}
+        style={styles.image}
+      />
+      <Text style={styles.textTitle}>Name</Text>
+      <TextInput
+        placeholder="Name"
+        style={styles.textInput}
+        value={petName}
+        onChangeText={setPetName}
+      />
+      <Text style={styles.textTitle}>Animal Type</Text>
+      {_renderAnimalType()}
+      <Text style={styles.textTitle}>Breed</Text>
+      <TextInput
+        placeholder="Breed"
+        style={styles.textInput}
+        value={breed}
+        onChangeText={setBreed}
+      />
+      <Text style={styles.textTitle}>Date of Birth: {dob.toDateString()}</Text>
+      {_renderDOBPicker()}
+      <Text style={[styles.title, { alignSelf: "center" }]}>
+        Medical History
+      </Text>
+      <View style={styles.addButtonContainer}>
+        <Button
+          title="+ Medical Record"
+          color={"#052b53"}
+          onPress={() => addMedicalRecordPress()}
         />
-        <Text style={styles.textTitle}>Name</Text>
-        <TextInput
-          placeholder="Name"
-          style={styles.textInput}
-          value={petName}
-          onChangeText={setPetName}
-        />
-        <Text style={styles.textTitle}>Animal Type</Text>
-        {_renderAnimalType()}
-        <Text style={styles.textTitle}>Breed</Text>
-        <TextInput
-          placeholder="Breed"
-          style={styles.textInput}
-          value={breed}
-          onChangeText={setBreed}
-        />
-        <Text style={styles.textTitle}>
-          Date of Birth: {dob.toDateString()}
-        </Text>
-        {_renderDOBPicker()}
-        <Text style={[styles.title, { alignSelf: "center" }]}>
-          Medical History
-        </Text>
-        <View style={styles.addButtonContainer}>
-          <Button
-            title="+ Medical Record"
-            color={"#052b53"}
-            onPress={() => addMedicalRecordPress()}
-          />
-        </View>
-        <SectionList
-          sections={medicalHistory}
-          renderItem={({ item }) => (
-            <MedicalFormItem
-              name={item.name}
-              date={item?.dateAdministered}
-              dosage={item?.dosage}
-              instructions={item?.instructions}
-              medicalRecordDetailPress={medicalRecordDetailPress}
-              medID={item.id}
-              reactions={item?.reactions}
-              severity={item?.severity}
-            />
-          )}
-          keyExtractor={(item) => `KEY_${item.id}`}
-          ListEmptyComponent={<Text>No results</Text>}
-          renderSectionHeader={({ section: { title } }) => (
-            <Text style={styles.textTitle}>{title}</Text>
-          )}
-          refreshControl={
-            <RefreshControl refreshing={isLoading} onRefresh={onRefresh} />
-          }
-          horizontal
-        />
-        <View style={styles.buttonContainer}>
-          <Button
-            title="Save Pet"
-            color={"#052b53"}
-            onPress={() => savePress()}
-          />
-          <View style={{ margin: 10 }} />
-          <Button
-            title="Delete Pet"
-            color={"#531805"}
-            onPress={() => deletePress()}
-          />
-        </View>
       </View>
-    </ScrollView>
+    </View>
+  );
+
+  const _renderButtons = () => (
+    <View style={styles.buttonContainer}>
+      <Button title="Save Pet" color={"#052b53"} onPress={() => savePress()} />
+      <View style={{ margin: 10 }} />
+      <Button
+        title="Delete Pet"
+        color={"#531805"}
+        onPress={() => deletePress()}
+      />
+    </View>
+  );
+
+  return (
+    <View style={styles.container}>
+      <SectionList
+        ListHeaderComponent={_renderPetProfile}
+        ListFooterComponent={_renderButtons}
+        sections={medicalHistory}
+        renderItem={({ item }) => (
+          <MedicalFormItem
+            name={item.name}
+            date={item?.dateAdministered}
+            dosage={item?.dosage}
+            instructions={item?.instructions}
+            medicalRecordDetailPress={medicalRecordDetailPress}
+            medID={item.id}
+            reactions={item?.reactions}
+            severity={item?.severity}
+          />
+        )}
+        keyExtractor={(item) => `KEY_${item.id}`}
+        ListEmptyComponent={<Text>No results</Text>}
+        renderSectionHeader={({ section: { title } }) => (
+          <Text style={styles.textTitle}>{title}</Text>
+        )}
+        refreshControl={
+          <RefreshControl refreshing={isLoading} onRefresh={onRefresh} />
+        }
+      />
+    </View>
   );
 }
 

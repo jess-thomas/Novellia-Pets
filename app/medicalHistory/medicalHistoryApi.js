@@ -112,3 +112,25 @@ export async function deleteVaccine(id, vaccineId) {
 
   return response.json();
 }
+
+export async function deleteAllergy(id, allergyId) {
+  const response = await fetch(
+    `http://10.0.0.12:3000/pets/${id}/allergies/${allergyId}`,
+    {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    },
+  );
+
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error(
+      `delete allergy API request failed (${response.status}): ${text}`,
+    );
+  }
+
+  return response.json();
+}
