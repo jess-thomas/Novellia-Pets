@@ -2,6 +2,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { Picker } from "@react-native-picker/picker";
 import {
   Button,
+  Image,
   RefreshControl,
   ScrollView,
   SectionList,
@@ -68,6 +69,10 @@ export default function PetsScreenView({
   return (
     <ScrollView>
       <View style={styles.container}>
+        <Image
+          source={require("./images/dog-placeholder.jpg")}
+          style={styles.image}
+        />
         <Text style={styles.textTitle}>Name</Text>
         <TextInput
           placeholder="Name"
@@ -145,6 +150,15 @@ const styles = StyleSheet.create({
     backgroundColor: "#fbfaf261",
     flex: 1,
     marginBottom: 30,
+  },
+  image: {
+    width: 300,
+    height: 200,
+    alignSelf: "center",
+    marginVertical: 20,
+    borderWidth: 2,
+    borderColor: "#052b53",
+    borderRadius: 8,
   },
   title: {
     fontSize: 24,
