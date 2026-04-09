@@ -2,12 +2,13 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import MedicalHistoryScreenView from "./MedicalHistoryScreen.view";
 import {
+  addAllergy,
   addMedication,
   addVaccine,
   deleteMedication,
   deleteVaccine,
 } from "./medicalHistoryApi";
-import { MEDICAL_FORM_TYPES } from "./medicalHistoryUtils";
+import { MEDICAL_FORM_TYPES, getReactions } from "./medicalHistoryUtils";
 
 export default function MedicalHistoryScreen() {
   const router = useRouter();
@@ -36,6 +37,12 @@ export default function MedicalHistoryScreen() {
         addVaccine(vaccineName, vaccineDate, id);
         break;
       case MEDICAL_FORM_TYPES.ALLERGY:
+        addAllergy(
+          allergyName,
+          getReactions(hasRash, hasSwelling, hasHives, hasVomiting),
+          allergySeverity,
+          id,
+        );
         break;
       case MEDICAL_FORM_TYPES.MEDICATION:
         addMedication(medicationName, dosage, instructions, id);
