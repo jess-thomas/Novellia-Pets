@@ -1,5 +1,6 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import MedicalHistoryScreenView from "./MedicalHistoryScreen.view";
 import {
   addAllergy,
@@ -9,22 +10,35 @@ import {
   deleteMedication,
   deleteVaccine,
 } from "./medicalHistoryApi";
-import { MEDICAL_FORM_TYPES, getReactions } from "./medicalHistoryUtils";
+import {
+  MEDICAL_FORM_TYPES,
+  getInitialMedicationValues,
+  getReactions,
+} from "./medicalHistoryUtils";
 
 export default function MedicalHistoryScreen() {
   const router = useRouter();
   const params = useLocalSearchParams();
+  const [editFormType] = useState(params?.type ?? null);
   const [medicalFormType, setMedicalFormType] = useState(
-    MEDICAL_FORM_TYPES.VACCINE,
+    editFormType || MEDICAL_FORM_TYPES.VACCINE,
   );
+  const pet = useSelector((state) => state.pet?.selectedPet);
   const [vaccineName, setVaccineName] = useState("");
   const [vaccineDate, setVaccineDate] = useState(new Date());
   const [showVaccineDate, setShowVaccineDate] = useState(false);
   const [allergyName, setAllergyName] = useState("");
   const [allergySeverity, setAllergySeverity] = useState("");
-  const [medicationName, setMedicationName] = useState("");
-  const [dosage, setDosage] = useState("");
-  const [instructions, setInstructions] = useState("");
+  const [initialMedicationValues] = useState(
+    getInitialMedicationValues(editFormType, pet),
+  );
+  const [medicationName, setMedicationName] = useState(
+    initialMedicationValues.name,
+  );
+  const [dosage, setDosage] = useState(initialMedicationValues.dosage);
+  const [instructions, setInstructions] = useState(
+    initialMedicationValues.instructions,
+  );
   const [id] = useState(params?.id ?? null);
   const [medID] = useState(params?.medID ?? null);
   const [hasRash, setRash] = useState(false);
@@ -71,6 +85,7 @@ export default function MedicalHistoryScreen() {
   };
 
   const onChangeDate = (event, newDate) => {
+    console.warn(pet);
     if (newDate) {
       setVaccineDate(newDate);
     }

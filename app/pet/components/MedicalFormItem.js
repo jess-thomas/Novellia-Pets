@@ -1,4 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { getFormType } from "../../medicalHistory/medicalHistoryUtils";
 export default function MedicalFormItem({
   name,
   date,
@@ -9,9 +10,12 @@ export default function MedicalFormItem({
   reactions,
   severity,
 }) {
+  const formType = getFormType(date, instructions, severity);
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => medicalRecordDetailPress(medID)}>
+      <TouchableOpacity
+        onPress={() => medicalRecordDetailPress(medID, formType)}
+      >
         <View>
           <Text style={styles.title}>{name}</Text>
           {!!date && (

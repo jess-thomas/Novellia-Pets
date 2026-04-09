@@ -69,10 +69,10 @@ export default function PetScreen() {
     });
   };
 
-  const medicalRecordDetailPress = (medID) => {
+  const medicalRecordDetailPress = (medID, type) => {
     router.push({
       pathname: `/medicalHistory/MedicalHistoryScreen`,
-      params: { id, medID },
+      params: { id, medID, type },
     });
   };
 
