@@ -1,15 +1,26 @@
-import { StyleSheet, Text, View } from "react-native";
-export default function Item({ name, date, dosage, instructions }) {
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+export default function Item({
+  name,
+  date,
+  dosage,
+  instructions,
+  medID,
+  medicalRecordDetailPress,
+}) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{name}</Text>
-      {!!date && (
-        <Text style={styles.subHeader}>Date Administered: {date}</Text>
-      )}
-      {!!dosage && <Text style={styles.subHeader}>Dosage: {dosage}</Text>}
-      {!!instructions && (
-        <Text style={styles.subHeader}>Instructions: {instructions}</Text>
-      )}
+      <TouchableOpacity onPress={() => medicalRecordDetailPress(medID)}>
+        <View>
+          <Text style={styles.title}>{name}</Text>
+          {!!date && (
+            <Text style={styles.subHeader}>Date Administered: {date}</Text>
+          )}
+          {!!dosage && <Text style={styles.subHeader}>Dosage: {dosage}</Text>}
+          {!!instructions && (
+            <Text style={styles.subHeader}>Instructions: {instructions}</Text>
+          )}
+        </View>
+      </TouchableOpacity>
     </View>
   );
 }

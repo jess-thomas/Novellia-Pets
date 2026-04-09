@@ -69,6 +69,13 @@ export default function PetScreen() {
     });
   };
 
+  const medicalRecordDetailPress = (medID) => {
+    router.push({
+      pathname: `/medicalHistory/MedicalHistoryScreen`,
+      params: { id, medID },
+    });
+  };
+
   return (
     <PetScreenView
       petName={petName}
@@ -83,6 +90,8 @@ export default function PetScreen() {
       medicalHistory={medicalHistory}
       isLoading={isLoading}
       onRefresh={onRefresh}
+      medicalRecordDetailPress={medicalRecordDetailPress}
+      id={id}
     />
   );
 }

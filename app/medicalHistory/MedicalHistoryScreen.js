@@ -1,7 +1,12 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import MedicalHistoryScreenView from "./MedicalHistoryScreen.view";
-import { addMedication, addVaccine } from "./medicalHistoryApi";
+import {
+    addMedication,
+    addVaccine,
+    deleteMedication,
+    deleteVaccine,
+} from "./medicalHistoryApi";
 import { MEDICAL_FORM_TYPES } from "./medicalHistoryUtils";
 
 export default function MedicalHistoryScreen() {
@@ -18,6 +23,7 @@ export default function MedicalHistoryScreen() {
   const [dosage, setDosage] = useState("");
   const [instructions, setInstructions] = useState("");
   const [id] = useState(params?.id ?? null);
+  const [medID] = useState(params?.medID ?? null);
 
   const onSavePress = () => {
     switch (medicalFormType) {
@@ -35,6 +41,18 @@ export default function MedicalHistoryScreen() {
     router.dismissTo({ pathname: `/pet/PetScreen`, params: { id } });
   };
   const onDeletePress = () => {
+    switch (medicalFormType) {
+      case MEDICAL_FORM_TYPES.VACCINE:
+        deleteVaccine(id, medID);
+        break;
+      case MEDICAL_FORM_TYPES.ALLERGY:
+        break;
+      case MEDICAL_FORM_TYPES.MEDICATION:
+        deleteMedication(id, medID);
+        break;
+      default:
+        break;
+    }
     router.dismissTo({ pathname: `/pet/PetScreen`, params: { id } });
   };
 

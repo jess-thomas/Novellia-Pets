@@ -24,6 +24,8 @@ export default function PetsScreenView({
   medicalHistory,
   isLoading,
   onRefresh,
+  medicalRecordDetailPress,
+  id,
 }) {
   const _renderAnimalType = () => (
     <View style={styles.textInput}>
@@ -80,7 +82,9 @@ export default function PetsScreenView({
               name={item.name}
               date={item?.dateAdministered}
               dosage={item?.dosage}
-              inscructions={item?.instructions}
+              instructions={item?.instructions}
+              medicalRecordDetailPress={medicalRecordDetailPress}
+              medID={item.id}
             />
           )}
           keyExtractor={(item) => `KEY_${item.id}`}
