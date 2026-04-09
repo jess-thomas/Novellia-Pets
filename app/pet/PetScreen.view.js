@@ -1,3 +1,4 @@
+import DateTimePicker from "@react-native-community/datetimepicker";
 import { Picker } from "@react-native-picker/picker";
 import {
   Button,
@@ -26,6 +27,10 @@ export default function PetsScreenView({
   onRefresh,
   medicalRecordDetailPress,
   id,
+  showDOBPicker,
+  setShowDOBPicker,
+  onChangeDate,
+  dob,
 }) {
   const _renderAnimalType = () => (
     <View style={styles.textInput}>
@@ -42,6 +47,23 @@ export default function PetsScreenView({
       </Picker>
     </View>
   );
+
+  const _renderDOBPicker = () => {
+    return (
+      <View>
+        <View style={styles.buttonContainer}>
+          <Button
+            title="Select Date"
+            color={"#052b53"}
+            onPress={() => setShowDOBPicker(true)}
+          />
+        </View>
+        {showDOBPicker && (
+          <DateTimePicker value={dob} mode="date" onChange={onChangeDate} />
+        )}
+      </View>
+    );
+  };
 
   return (
     <ScrollView>
@@ -62,7 +84,10 @@ export default function PetsScreenView({
           value={breed}
           onChangeText={setBreed}
         />
-        <Text style={styles.textTitle}>Date of Birth</Text>
+        <Text style={styles.textTitle}>
+          Date of Birth: {dob.toDateString()}
+        </Text>
+        {_renderDOBPicker()}
         <Text style={styles.textTitle}>Photo</Text>
         <Text style={[styles.textTitle, { alignSelf: "center" }]}>
           Medical History

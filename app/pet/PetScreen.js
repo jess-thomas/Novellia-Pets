@@ -8,12 +8,12 @@ export default function PetScreen() {
   const [petName, setPetName] = useState("");
   const [breed, setBreed] = useState("");
   const [animalType, setAnimalType] = useState("");
-  const [dob, setDOB] = useState("10/02/1990");
+  const [dob, setDOB] = useState(new Date());
   const params = useLocalSearchParams();
   const [id] = useState(params?.id ?? null);
-  const [vaccines, setVaccines] = useState([]);
   const [medicalHistory, setMedicalHistory] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [showDOBPicker, setDOBPicker] = useState(false);
 
   useEffect(() => {
     if (!!params?.id) {
@@ -22,9 +22,8 @@ export default function PetScreen() {
         console.warn(response);
         setPetName(response.name);
         setAnimalType(response.type);
-        setDOB(response.dob);
+        //setDOB(response.dob);
         setBreed(response.breed);
-        setVaccines(response.vaccines);
         setMedicalHistory([
           { title: "Vaccines", data: response.vaccines },
           { title: "Medications", data: response.medications },
@@ -76,6 +75,13 @@ export default function PetScreen() {
     });
   };
 
+  const onChangeDate = (event, newDate) => {
+    setShowDOBPicker(false);
+    if (newDate) {
+      setDOB(newDate);
+    }
+  };
+
   return (
     <PetScreenView
       petName={petName}
@@ -92,6 +98,10 @@ export default function PetScreen() {
       onRefresh={onRefresh}
       medicalRecordDetailPress={medicalRecordDetailPress}
       id={id}
+      showDOBPicker={showDOBPicker}
+      dob={dob}
+      onChangeDate={onChangeDate}
+      setShowDOBPicker={setDOBPicker}
     />
   );
 }
