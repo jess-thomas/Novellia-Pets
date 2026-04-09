@@ -1,5 +1,6 @@
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Picker } from "@react-native-picker/picker";
+import Checkbox from "expo-checkbox";
 import {
   Button,
   ScrollView,
@@ -30,6 +31,14 @@ export default function MedicalHistoryScreenView({
   setVaccineDate,
   showVaccineDate,
   setShowVaccineDate,
+  hasRash,
+  setRash,
+  hasSwelling,
+  setSwelling,
+  hasHives,
+  setHives,
+  hasVomiting,
+  setVomiting,
 }) {
   const _renderMedicalFormPicker = () => (
     <View style={styles.textInput}>
@@ -85,8 +94,45 @@ export default function MedicalHistoryScreenView({
         onChangeText={setAllergyName}
       />
       <View style={styles.textInput}>
-        <Text style={styles.textTitle}>Reactions</Text>
-        <Text style={styles.textTitle}>to do add check boxes</Text>
+        <Text style={[styles.textTitle, { alignSelf: "center" }]}>
+          Reactions
+        </Text>
+        <View style={styles.checkboxContainer}>
+          <Checkbox
+            style={styles.checkbox}
+            value={hasRash}
+            onValueChange={setRash}
+            color={hasRash ? "#052b53" : undefined}
+          />
+          <Text style={styles.checkboxText}>Rash</Text>
+        </View>
+        <View style={styles.checkboxContainer}>
+          <Checkbox
+            style={styles.checkbox}
+            value={hasSwelling}
+            onValueChange={setSwelling}
+            color={hasSwelling ? "#052b53" : undefined}
+          />
+          <Text style={styles.checkboxText}>Swelling</Text>
+        </View>
+        <View style={styles.checkboxContainer}>
+          <Checkbox
+            style={styles.checkbox}
+            value={hasHives}
+            onValueChange={setHives}
+            color={hasHives ? "#052b53" : undefined}
+          />
+          <Text style={styles.checkboxText}>Hives</Text>
+        </View>
+        <View style={styles.checkboxContainer}>
+          <Checkbox
+            style={styles.checkbox}
+            value={hasVomiting}
+            onValueChange={setVomiting}
+            color={hasVomiting ? "#052b53" : undefined}
+          />
+          <Text style={styles.checkboxText}>Vomiting</Text>
+        </View>
       </View>
       <View style={styles.textInput}>
         <Text style={styles.pickerTitleText}>Severity</Text>
@@ -165,6 +211,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginVertical: 20,
     alignSelf: "center",
+    color: "#052b53",
   },
   textTitle: {
     fontSize: 22,
@@ -172,6 +219,12 @@ const styles = StyleSheet.create({
     marginLeft: 18,
     marginTop: 10,
     color: "#052b53",
+  },
+  checkboxText: {
+    fontSize: 18,
+    fontWeight: "medium",
+    color: "#052b53",
+    marginLeft: 8,
   },
   pickerTitleText: {
     fontSize: 22,
@@ -224,5 +277,10 @@ const styles = StyleSheet.create({
     marginBottom: 50,
     flexDirection: "row",
     justifyContent: "space-between",
+  },
+  checkboxContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    margin: 10,
   },
 });

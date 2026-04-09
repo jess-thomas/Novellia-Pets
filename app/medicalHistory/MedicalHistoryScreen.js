@@ -25,6 +25,10 @@ export default function MedicalHistoryScreen() {
   const [instructions, setInstructions] = useState("");
   const [id] = useState(params?.id ?? null);
   const [medID] = useState(params?.medID ?? null);
+  const [hasRash, setRash] = useState(false);
+  const [hasSwelling, setSwelling] = useState(false);
+  const [hasHives, setHives] = useState(false);
+  const [hasVomiting, setVomiting] = useState(false);
 
   const onSavePress = () => {
     switch (medicalFormType) {
@@ -85,6 +89,14 @@ export default function MedicalHistoryScreen() {
       setVaccineDate={onChangeDate}
       showVaccineDate={showVaccineDate}
       setShowVaccineDate={setShowVaccineDate}
+      hasRash={hasRash}
+      setRash={setRash}
+      hasSwelling={hasSwelling}
+      setSwelling={setSwelling}
+      hasHives={hasHives}
+      setHives={setHives}
+      hasVomiting={hasVomiting}
+      setVomiting={setVomiting}
     />
   );
 }

@@ -93,14 +93,13 @@ export default function PetsScreenView({
           Date of Birth: {dob.toDateString()}
         </Text>
         {_renderDOBPicker()}
-        <Text style={[styles.textTitle, { alignSelf: "center" }]}>
+        <Text style={[styles.title, { alignSelf: "center" }]}>
           Medical History
         </Text>
-        <View style={styles.buttonContainer}>
+        <View style={styles.addButtonContainer}>
           <Button
-            title="Add Medical Record"
+            title="+ Medical Record"
             color={"#052b53"}
-            style={styles.button}
             onPress={() => addMedicalRecordPress()}
           />
         </View>
@@ -160,10 +159,10 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   title: {
-    fontSize: 24,
+    fontSize: 32,
     fontWeight: "bold",
-    marginVertical: 20,
     alignSelf: "center",
+    color: "#052b53",
   },
   textTitle: {
     fontSize: 22,
@@ -185,6 +184,12 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 15,
     margin: 25,
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  addButtonContainer: {
+    borderRadius: 25,
+    margin: 20,
     flexDirection: "row",
     justifyContent: "center",
   },
