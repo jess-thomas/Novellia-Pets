@@ -1,11 +1,12 @@
+import DateTimePicker from "@react-native-community/datetimepicker";
 import { Picker } from "@react-native-picker/picker";
 import {
-    Button,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    View,
+  Button,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
 } from "react-native";
 
 export default function MedicalHistoryScreenView({
@@ -27,6 +28,8 @@ export default function MedicalHistoryScreenView({
   onSavePress,
   vaccineDate,
   setVaccineDate,
+  showVaccineDate,
+  setShowVaccineDate,
 }) {
   const _renderMedicalFormPicker = () => (
     <View style={styles.textInput}>
@@ -50,14 +53,25 @@ export default function MedicalHistoryScreenView({
         value={vaccineName}
         onChangeText={setVaccineName}
       />
-      <Text style={styles.textTitle}>Date Administered</Text>
-      <Text style={styles.textTitle}>TO DO: add date picker</Text>
-      <TextInput
-        placeholder="Date"
-        style={styles.textInput}
-        value={vaccineDate}
-        onChangeText={setVaccineDate}
-      />
+      <Text style={styles.textTitle}>
+        Date Administered: {vaccineDate.toDateString()}
+      </Text>
+      <View>
+        <View style={styles.buttonContainer}>
+          <Button
+            title="Select Date"
+            color={"#052b53"}
+            onPress={() => setShowVaccineDate(!showVaccineDate)}
+          />
+        </View>
+        {showVaccineDate && (
+          <DateTimePicker
+            value={vaccineDate}
+            mode="date"
+            onChange={setVaccineDate}
+          />
+        )}
+      </View>
     </View>
   );
 

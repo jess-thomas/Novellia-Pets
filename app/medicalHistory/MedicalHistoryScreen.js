@@ -2,10 +2,10 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import MedicalHistoryScreenView from "./MedicalHistoryScreen.view";
 import {
-    addMedication,
-    addVaccine,
-    deleteMedication,
-    deleteVaccine,
+  addMedication,
+  addVaccine,
+  deleteMedication,
+  deleteVaccine,
 } from "./medicalHistoryApi";
 import { MEDICAL_FORM_TYPES } from "./medicalHistoryUtils";
 
@@ -16,7 +16,8 @@ export default function MedicalHistoryScreen() {
     MEDICAL_FORM_TYPES.VACCINE,
   );
   const [vaccineName, setVaccineName] = useState("");
-  const [vaccineDate, setVaccineDate] = useState("");
+  const [vaccineDate, setVaccineDate] = useState(new Date());
+  const [showVaccineDate, setShowVaccineDate] = useState(false);
   const [allergyName, setAllergyName] = useState("");
   const [allergySeverity, setAllergySeverity] = useState("");
   const [medicationName, setMedicationName] = useState("");
@@ -56,6 +57,12 @@ export default function MedicalHistoryScreen() {
     router.dismissTo({ pathname: `/pet/PetScreen`, params: { id } });
   };
 
+  const onChangeDate = (event, newDate) => {
+    if (newDate) {
+      setVaccineDate(newDate);
+    }
+  };
+
   return (
     <MedicalHistoryScreenView
       medicalFormType={medicalFormType}
@@ -75,7 +82,9 @@ export default function MedicalHistoryScreen() {
       onSavePress={onSavePress}
       onDeletePress={onDeletePress}
       vaccineDate={vaccineDate}
-      setVaccineDate={setVaccineDate}
+      setVaccineDate={onChangeDate}
+      showVaccineDate={showVaccineDate}
+      setShowVaccineDate={setShowVaccineDate}
     />
   );
 }

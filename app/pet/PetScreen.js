@@ -76,7 +76,6 @@ export default function PetScreen() {
   };
 
   const onChangeDate = (event, newDate) => {
-    setShowDOBPicker(false);
     if (newDate) {
       setDOB(newDate);
     }

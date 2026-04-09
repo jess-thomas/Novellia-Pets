@@ -55,7 +55,7 @@ export default function PetsScreenView({
           <Button
             title="Select Date"
             color={"#052b53"}
-            onPress={() => setShowDOBPicker(true)}
+            onPress={() => setShowDOBPicker(!showDOBPicker)}
           />
         </View>
         {showDOBPicker && (
