@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-export default function Item({
+export default function MedicalFormItem({
   name,
   date,
   dosage,

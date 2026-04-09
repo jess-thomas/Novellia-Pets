@@ -11,7 +11,7 @@ import {
   TextInput,
   View,
 } from "react-native";
-import Item from "./components/Item";
+import MedicalFormItem from "./components/MedicalFormItem";
 
 export default function PetsScreenView({
   animalType,
@@ -106,7 +106,7 @@ export default function PetsScreenView({
         <SectionList
           sections={medicalHistory}
           renderItem={({ item }) => (
-            <Item
+            <MedicalFormItem
               name={item.name}
               date={item?.dateAdministered}
               dosage={item?.dosage}
