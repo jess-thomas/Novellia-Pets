@@ -6,6 +6,8 @@ export default function Item({
   instructions,
   medID,
   medicalRecordDetailPress,
+  reactions,
+  severity,
 }) {
   return (
     <View style={styles.container}>
@@ -21,6 +23,14 @@ export default function Item({
           {!!instructions && (
             <Text style={styles.subHeader}>Instructions: {instructions}</Text>
           )}
+          {!!reactions && (
+            <Text style={styles.subHeader}>
+              Reactions: {reactions?.join(", ")}
+            </Text>
+          )}
+          {!!severity && (
+            <Text style={styles.subHeader}>Severity: {severity}</Text>
+          )}
         </View>
       </TouchableOpacity>
     </View>
@@ -29,7 +39,7 @@ export default function Item({
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#fbfaf261",
+    backgroundColor: "#fdfcf9e5",
     padding: 10,
     borderWidth: 2,
     borderColor: "#052b53",
@@ -39,10 +49,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "bold",
+    color: "#052b53",
   },
   subHeader: {
     fontSize: 18,
     fontWeight: "500",
     marginVertical: 10,
+    color: "#052b53",
   },
 });

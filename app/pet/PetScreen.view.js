@@ -113,6 +113,8 @@ export default function PetsScreenView({
               instructions={item?.instructions}
               medicalRecordDetailPress={medicalRecordDetailPress}
               medID={item.id}
+              reactions={item?.reactions}
+              severity={item?.severity}
             />
           )}
           keyExtractor={(item) => `KEY_${item.id}`}
