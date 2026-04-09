@@ -39,6 +39,7 @@ export default function MedicalHistoryScreenView({
   setHives,
   hasVomiting,
   setVomiting,
+  isEdit,
 }) {
   const _renderMedicalFormPicker = () => (
     <View style={styles.textInput}>
@@ -190,12 +191,14 @@ export default function MedicalHistoryScreenView({
             style={styles.button}
             onPress={() => onSavePress()}
           />
-          <Button
-            title="Delete"
-            color={"#531805"}
-            style={styles.deleteButton}
-            onPress={() => onDeletePress()}
-          />
+          {isEdit && (
+            <Button
+              title="Delete"
+              color={"#531805"}
+              style={styles.deleteButton}
+              onPress={() => onDeletePress()}
+            />
+          )}
         </View>
       </View>
     </ScrollView>

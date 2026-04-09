@@ -134,3 +134,67 @@ export async function deleteAllergy(id, allergyId) {
 
   return response.json();
 }
+
+export async function editAllergy(id, allergyId) {
+  const response = await fetch(
+    `http://10.0.0.12:3000/pets/${id}/allergies/${allergyId}`,
+    {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    },
+  );
+
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error(
+      `edit allergy API request failed (${response.status}): ${text}`,
+    );
+  }
+
+  return response.json();
+}
+export async function editMedication(id, medicationID) {
+  const response = await fetch(
+    `http://10.0.0.12:3000/pets/${id}/medications/${medicationID}`,
+    {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    },
+  );
+
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error(
+      `edit medication API request failed (${response.status}): ${text}`,
+    );
+  }
+
+  return response.json();
+}
+export async function editVaccine(id, vaccineID) {
+  const response = await fetch(
+    `http://10.0.0.12:3000/pets/${id}/vaccines/${vaccineID}`,
+    {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    },
+  );
+
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error(
+      `edit vaccines API request failed (${response.status}): ${text}`,
+    );
+  }
+
+  return response.json();
+}

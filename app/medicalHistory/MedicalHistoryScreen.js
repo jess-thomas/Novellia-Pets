@@ -9,6 +9,9 @@ import {
   deleteAllergy,
   deleteMedication,
   deleteVaccine,
+  editAllergy,
+  editMedication,
+  editVaccine,
 } from "./medicalHistoryApi";
 import {
   MEDICAL_FORM_TYPES,
@@ -45,25 +48,47 @@ export default function MedicalHistoryScreen() {
   const [hasSwelling, setSwelling] = useState(false);
   const [hasHives, setHives] = useState(false);
   const [hasVomiting, setVomiting] = useState(false);
+  const isEdit = !!params?.id;
 
   const onSavePress = () => {
-    switch (medicalFormType) {
-      case MEDICAL_FORM_TYPES.VACCINE:
-        addVaccine(vaccineName, vaccineDate, id);
-        break;
-      case MEDICAL_FORM_TYPES.ALLERGY:
-        addAllergy(
-          allergyName,
-          getReactions(hasRash, hasSwelling, hasHives, hasVomiting),
-          allergySeverity,
-          id,
-        );
-        break;
-      case MEDICAL_FORM_TYPES.MEDICATION:
-        addMedication(medicationName, dosage, instructions, id);
-        break;
-      default:
-        break;
+    if (isEdit) {
+      switch (medicalFormType) {
+        case MEDICAL_FORM_TYPES.VACCINE:
+          editVaccine(vaccineName, vaccineDate, id);
+          break;
+        case MEDICAL_FORM_TYPES.ALLERGY:
+          editAllergy(
+            allergyName,
+            getReactions(hasRash, hasSwelling, hasHives, hasVomiting),
+            allergySeverity,
+            id,
+          );
+          break;
+        case MEDICAL_FORM_TYPES.MEDICATION:
+          editMedication(medicationName, dosage, instructions, id);
+          break;
+        default:
+          break;
+      }
+    } else {
+      switch (medicalFormType) {
+        case MEDICAL_FORM_TYPES.VACCINE:
+          addVaccine(vaccineName, vaccineDate, id);
+          break;
+        case MEDICAL_FORM_TYPES.ALLERGY:
+          addAllergy(
+            allergyName,
+            getReactions(hasRash, hasSwelling, hasHives, hasVomiting),
+            allergySeverity,
+            id,
+          );
+          break;
+        case MEDICAL_FORM_TYPES.MEDICATION:
+          addMedication(medicationName, dosage, instructions, id);
+          break;
+        default:
+          break;
+      }
     }
     router.dismissTo({ pathname: `/pet/PetScreen`, params: { id } });
   };
@@ -121,6 +146,7 @@ export default function MedicalHistoryScreen() {
       setHives={setHives}
       hasVomiting={hasVomiting}
       setVomiting={setVomiting}
+      isEdit={isEdit}
     />
   );
 }
