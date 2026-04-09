@@ -13,7 +13,9 @@ export default function Item({
         <View>
           <Text style={styles.title}>{name}</Text>
           {!!date && (
-            <Text style={styles.subHeader}>Date Administered: {date}</Text>
+            <Text style={styles.subHeader}>
+              Date Administered: {new Date(date).toDateString()}
+            </Text>
           )}
           {!!dosage && <Text style={styles.subHeader}>Dosage: {dosage}</Text>}
           {!!instructions && (

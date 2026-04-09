@@ -22,7 +22,7 @@ export default function PetScreen() {
         console.warn(response);
         setPetName(response.name);
         setAnimalType(response.type);
-        //setDOB(response.dob);
+        setDOB(new Date(response.dob));
         setBreed(response.breed);
         setMedicalHistory([
           { title: "Vaccines", data: response.vaccines },

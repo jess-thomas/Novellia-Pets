@@ -93,7 +93,6 @@ export default function PetsScreenView({
           Date of Birth: {dob.toDateString()}
         </Text>
         {_renderDOBPicker()}
-        <Text style={styles.textTitle}>Photo</Text>
         <Text style={[styles.textTitle, { alignSelf: "center" }]}>
           Medical History
         </Text>
