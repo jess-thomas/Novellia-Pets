@@ -15,7 +15,9 @@ import {
 } from "./medicalHistoryApi";
 import {
   MEDICAL_FORM_TYPES,
+  getInitialAllergyValues,
   getInitialMedicationValues,
+  getInitialVaccineValues,
   getReactions,
 } from "./medicalHistoryUtils";
 
@@ -26,28 +28,38 @@ export default function MedicalHistoryScreen() {
   const [medicalFormType, setMedicalFormType] = useState(
     editFormType || MEDICAL_FORM_TYPES.VACCINE,
   );
+  const [medID] = useState(params?.medID ?? null);
   const pet = useSelector((state) => state.pet?.selectedPet);
-  const [vaccineName, setVaccineName] = useState("");
-  const [vaccineDate, setVaccineDate] = useState(new Date());
-  const [showVaccineDate, setShowVaccineDate] = useState(false);
-  const [allergyName, setAllergyName] = useState("");
-  const [allergySeverity, setAllergySeverity] = useState("");
   const [initialMedicationValues] = useState(
-    getInitialMedicationValues(editFormType, pet),
+    getInitialMedicationValues(editFormType, pet, medID),
+  );
+  const [initialVaccineValues] = useState(
+    getInitialVaccineValues(editFormType, pet, medID),
+  );
+  const [initialAllergyValues] = useState(
+    getInitialAllergyValues(editFormType, pet, medID),
   );
   const [medicationName, setMedicationName] = useState(
     initialMedicationValues.name,
+  );
+  const [vaccineName, setVaccineName] = useState(initialVaccineValues.name);
+  const [vaccineDate, setVaccineDate] = useState(
+    initialVaccineValues.administeredDate,
+  );
+  const [showVaccineDate, setShowVaccineDate] = useState(false);
+  const [allergyName, setAllergyName] = useState(initialAllergyValues.name);
+  const [allergySeverity, setAllergySeverity] = useState(
+    initialAllergyValues.severity,
   );
   const [dosage, setDosage] = useState(initialMedicationValues.dosage);
   const [instructions, setInstructions] = useState(
     initialMedicationValues.instructions,
   );
   const [id] = useState(params?.id ?? null);
-  const [medID] = useState(params?.medID ?? null);
-  const [hasRash, setRash] = useState(false);
-  const [hasSwelling, setSwelling] = useState(false);
-  const [hasHives, setHives] = useState(false);
-  const [hasVomiting, setVomiting] = useState(false);
+  const [hasRash, setRash] = useState(initialAllergyValues.hasRash);
+  const [hasSwelling, setSwelling] = useState(initialAllergyValues.hasSwelling);
+  const [hasHives, setHives] = useState(initialAllergyValues.hasHives);
+  const [hasVomiting, setVomiting] = useState(initialAllergyValues.hasVomiting);
   const isEdit = !!params?.id;
 
   const onSavePress = () => {
