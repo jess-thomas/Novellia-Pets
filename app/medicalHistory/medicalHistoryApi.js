@@ -135,7 +135,7 @@ export async function deleteAllergy(id, allergyId) {
   return response.json();
 }
 
-export async function editAllergy(id, allergyId) {
+export async function editAllergy(name, reactions, severity, id, allergyId) {
   const response = await fetch(
     `http://10.0.0.12:3000/pets/${id}/allergies/${allergyId}`,
     {
@@ -144,6 +144,11 @@ export async function editAllergy(id, allergyId) {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
+      body: JSON.stringify({
+        name,
+        reactions,
+        severity,
+      }),
     },
   );
 
@@ -156,7 +161,13 @@ export async function editAllergy(id, allergyId) {
 
   return response.json();
 }
-export async function editMedication(id, medicationID) {
+export async function editMedication(
+  name,
+  dosage,
+  instructions,
+  id,
+  medicationID,
+) {
   const response = await fetch(
     `http://10.0.0.12:3000/pets/${id}/medications/${medicationID}`,
     {
@@ -165,6 +176,11 @@ export async function editMedication(id, medicationID) {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
+      body: JSON.stringify({
+        name,
+        dosage,
+        instructions,
+      }),
     },
   );
 
@@ -177,7 +193,7 @@ export async function editMedication(id, medicationID) {
 
   return response.json();
 }
-export async function editVaccine(id, vaccineID) {
+export async function editVaccine(name, date, id, vaccineID) {
   const response = await fetch(
     `http://10.0.0.12:3000/pets/${id}/vaccines/${vaccineID}`,
     {
@@ -186,6 +202,10 @@ export async function editVaccine(id, vaccineID) {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
+      body: JSON.stringify({
+        name: name,
+        dateAdministered: date,
+      }),
     },
   );
 

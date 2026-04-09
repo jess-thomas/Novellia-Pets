@@ -39,6 +39,7 @@ export default function PetScreen() {
   const onRefresh = async () => {
     setIsLoading(true);
     const response = await getPetDetails(id);
+    dispatch(setSelectedPet(response));
     setMedicalHistory([
       { title: "Vaccines", data: response.vaccines },
       { title: "Medications", data: response.medications },
@@ -80,6 +81,7 @@ export default function PetScreen() {
     if (newDate) {
       setDOB(newDate);
     }
+    setDOBPicker(false);
   };
 
   return (

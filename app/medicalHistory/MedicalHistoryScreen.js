@@ -66,7 +66,7 @@ export default function MedicalHistoryScreen() {
     if (isEdit) {
       switch (medicalFormType) {
         case MEDICAL_FORM_TYPES.VACCINE:
-          editVaccine(vaccineName, vaccineDate, id);
+          editVaccine(vaccineName, vaccineDate, id, medID);
           break;
         case MEDICAL_FORM_TYPES.ALLERGY:
           editAllergy(
@@ -74,10 +74,11 @@ export default function MedicalHistoryScreen() {
             getReactions(hasRash, hasSwelling, hasHives, hasVomiting),
             allergySeverity,
             id,
+            medID,
           );
           break;
         case MEDICAL_FORM_TYPES.MEDICATION:
-          editMedication(medicationName, dosage, instructions, id);
+          editMedication(medicationName, dosage, instructions, id, medID);
           break;
         default:
           break;
