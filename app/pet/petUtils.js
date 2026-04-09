@@ -1,0 +1,2 @@
+export const SET_SELECTED_PET_ID = "SET_SELECTED_PET_ID";
+export const SET_SELECTED_PET = "SET_SELECTED_PET";

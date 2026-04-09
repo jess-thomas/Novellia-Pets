@@ -38,13 +38,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#fbfaf261",
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
   },
   title: {
     fontSize: 24,
     fontWeight: "bold",
     marginVertical: 20,
     alignSelf: "center",
+    color: "#052b53",
   },
   image: {
     width: 300,

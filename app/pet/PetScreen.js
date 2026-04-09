@@ -1,9 +1,12 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import PetScreenView from "./PetScreen.view";
+import { setSelectedPet } from "./petActions";
 import { addPet, deletePet, editPet, getPetDetails } from "./petApi";
 
 export default function PetScreen() {
+  const dispatch = useDispatch();
   const router = useRouter();
   const [petName, setPetName] = useState("");
   const [breed, setBreed] = useState("");
@@ -19,6 +22,7 @@ export default function PetScreen() {
     if (!!params?.id) {
       (async () => {
         const response = await getPetDetails(id);
+        dispatch(setSelectedPet(response));
         setPetName(response.name);
         setAnimalType(response.type);
         setDOB(new Date(response.dob));
@@ -30,7 +34,6 @@ export default function PetScreen() {
         ]);
       })();
     }
-    console.log(medicalHistory);
   }, []);
 
   const onRefresh = async () => {
