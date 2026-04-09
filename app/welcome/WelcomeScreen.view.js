@@ -1,5 +1,6 @@
 import {
   ActivityIndicator,
+  Image,
   StyleSheet,
   Text,
   TextInput,
@@ -16,6 +17,7 @@ export default function WelcomeScreenView({
 }) {
   return (
     <View style={styles.container}>
+      <Image source={require("./images/pets.jpeg")} style={styles.image} />
       <Text style={styles.title}>Welcome to Novellia Pets</Text>
       <TextInput
         placeholder="Enter Username to get started"
@@ -43,6 +45,15 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginVertical: 20,
     alignSelf: "center",
+  },
+  image: {
+    width: 300,
+    height: 200,
+    alignSelf: "center",
+    marginVertical: 20,
+    borderWidth: 2,
+    borderColor: "#052b53",
+    borderRadius: 8,
   },
   textInput: {
     backgroundColor: "#f0f0f0",
