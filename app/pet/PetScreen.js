@@ -19,7 +19,6 @@ export default function PetScreen() {
     if (!!params?.id) {
       (async () => {
         const response = await getPetDetails(id);
-        console.warn(response);
         setPetName(response.name);
         setAnimalType(response.type);
         setDOB(new Date(response.dob));

@@ -5,6 +5,7 @@ import {
   addAllergy,
   addMedication,
   addVaccine,
+  deleteAllergy,
   deleteMedication,
   deleteVaccine,
 } from "./medicalHistoryApi";
@@ -58,6 +59,7 @@ export default function MedicalHistoryScreen() {
         deleteVaccine(id, medID);
         break;
       case MEDICAL_FORM_TYPES.ALLERGY:
+        deleteAllergy(id, medID);
         break;
       case MEDICAL_FORM_TYPES.MEDICATION:
         deleteMedication(id, medID);
