@@ -1,16 +1,13 @@
-import DateTimePicker from "@react-native-community/datetimepicker";
-import { Picker } from "@react-native-picker/picker";
 import {
   Button,
-  Image,
   RefreshControl,
   SectionList,
   StyleSheet,
   Text,
-  TextInput,
   View,
 } from "react-native";
 import MedicalFormItem from "./components/MedicalFormItem";
+import { PetProfileHeader } from "./components/PetProfileHeader";
 
 export default function PetsScreenView({
   animalType,
@@ -31,93 +28,41 @@ export default function PetsScreenView({
   setShowDOBPicker,
   onChangeDate,
   dob,
+  isEdit,
 }) {
-  const _renderAnimalType = () => (
-    <View style={styles.textInput}>
-      <Picker
-        selectedValue={animalType}
-        onValueChange={(itemValue) => setAnimalType(itemValue)}
-      >
-        <Picker.Item label="Dog" value="dog" />
-        <Picker.Item label="Cat" value="cat" />
-        <Picker.Item label="Bird" value="bird" />
-        <Picker.Item label="Bunny" value="bunny" />
-        <Picker.Item label="Horse" value="horse" />
-        <Picker.Item label="Lizard" value="lizard" />
-      </Picker>
-    </View>
-  );
-
-  const _renderDOBPicker = () => {
-    return (
-      <View>
-        <View style={styles.buttonContainer}>
-          <Button
-            title="Select Date"
-            color={"#052b53"}
-            onPress={() => setShowDOBPicker(!showDOBPicker)}
-          />
-        </View>
-        {showDOBPicker && (
-          <DateTimePicker value={dob} mode="date" onChange={onChangeDate} />
-        )}
-      </View>
-    );
-  };
-
-  const _renderPetProfile = () => (
-    <View>
-      <Image
-        source={require("./images/dog-placeholder.jpg")}
-        style={styles.image}
-      />
-      <Text style={styles.textTitle}>Name</Text>
-      <TextInput
-        placeholder="Name"
-        style={styles.textInput}
-        value={petName}
-        onChangeText={setPetName}
-      />
-      <Text style={styles.textTitle}>Animal Type</Text>
-      {_renderAnimalType()}
-      <Text style={styles.textTitle}>Breed</Text>
-      <TextInput
-        placeholder="Breed"
-        style={styles.textInput}
-        value={breed}
-        onChangeText={setBreed}
-      />
-      <Text style={styles.textTitle}>Date of Birth: {dob.toDateString()}</Text>
-      {_renderDOBPicker()}
-      <Text style={[styles.title, { alignSelf: "center" }]}>
-        Medical History
-      </Text>
-      <View style={styles.addButtonContainer}>
-        <Button
-          title="+ Medical Record"
-          color={"#052b53"}
-          onPress={() => addMedicalRecordPress()}
-        />
-      </View>
-    </View>
-  );
-
   const _renderButtons = () => (
     <View style={styles.buttonContainer}>
       <Button title="Save Pet" color={"#052b53"} onPress={() => savePress()} />
       <View style={{ margin: 10 }} />
-      <Button
-        title="Delete Pet"
-        color={"#531805"}
-        onPress={() => deletePress()}
-      />
+      {isEdit && (
+        <Button
+          title="Delete Pet"
+          color={"#531805"}
+          onPress={() => deletePress()}
+        />
+      )}
     </View>
   );
 
   return (
     <View style={styles.container}>
       <SectionList
-        ListHeaderComponent={_renderPetProfile}
+        ListHeaderComponent={
+          <PetProfileHeader
+            petName={petName}
+            setPetName={setPetName}
+            animalType={animalType}
+            setAnimalType={setAnimalType}
+            breed={breed}
+            setBreed={setBreed}
+            dob={dob}
+            showDOBPicker={showDOBPicker}
+            setShowDOBPicker={setShowDOBPicker}
+            onChangeDate={onChangeDate}
+            isEdit={isEdit}
+            addMedicalRecordPress={addMedicalRecordPress}
+          />
+        }
         ListFooterComponent={_renderButtons}
         sections={medicalHistory}
         renderItem={({ item }) => (
@@ -133,7 +78,6 @@ export default function PetsScreenView({
           />
         )}
         keyExtractor={(item) => `KEY_${item.id}`}
-        ListEmptyComponent={<Text>No results</Text>}
         renderSectionHeader={({ section: { title } }) => (
           <Text style={styles.textTitle}>{title}</Text>
         )}

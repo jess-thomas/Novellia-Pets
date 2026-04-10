@@ -24,10 +24,8 @@ import {
 export default function MedicalHistoryScreen() {
   const router = useRouter();
   const params = useLocalSearchParams();
-  const [editFormType] = useState(params?.type ?? null);
-  const [medicalFormType, setMedicalFormType] = useState(
-    editFormType || MEDICAL_FORM_TYPES.VACCINE,
-  );
+  const [editFormType] = useState(params?.type ?? MEDICAL_FORM_TYPES.VACCINE);
+  const [medicalFormType, setMedicalFormType] = useState(editFormType);
   const [medID] = useState(params?.medID ?? null);
   const pet = useSelector((state) => state.pet?.selectedPet);
   const [initialMedicationValues] = useState(
@@ -60,7 +58,7 @@ export default function MedicalHistoryScreen() {
   const [hasSwelling, setSwelling] = useState(initialAllergyValues.hasSwelling);
   const [hasHives, setHives] = useState(initialAllergyValues.hasHives);
   const [hasVomiting, setVomiting] = useState(initialAllergyValues.hasVomiting);
-  const isEdit = !!params?.id;
+  const isEdit = !!params?.medID;
 
   const onSavePress = () => {
     if (isEdit) {

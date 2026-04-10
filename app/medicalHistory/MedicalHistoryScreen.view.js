@@ -64,7 +64,7 @@ export default function MedicalHistoryScreenView({
         onChangeText={setVaccineName}
       />
       <Text style={styles.textTitle}>
-        Date Administered: {vaccineDate.toDateString()}
+        Date Administered: {vaccineDate?.toDateString()}
       </Text>
       <View>
         <View style={styles.buttonContainer}>
@@ -76,7 +76,7 @@ export default function MedicalHistoryScreenView({
         </View>
         {showVaccineDate && (
           <DateTimePicker
-            value={vaccineDate}
+            value={vaccineDate || new Date()}
             mode="date"
             onChange={setVaccineDate}
           />

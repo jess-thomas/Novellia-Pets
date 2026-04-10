@@ -1,6 +1,7 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { getPets } from "../pets/petsApi";
 import PetScreenView from "./PetScreen.view";
 import { setSelectedPet } from "./petActions";
 import { addPet, deletePet, editPet, getPetDetails } from "./petApi";
@@ -10,16 +11,17 @@ export default function PetScreen() {
   const router = useRouter();
   const [petName, setPetName] = useState("");
   const [breed, setBreed] = useState("");
-  const [animalType, setAnimalType] = useState("");
+  const [animalType, setAnimalType] = useState("dog");
   const [dob, setDOB] = useState(new Date());
   const params = useLocalSearchParams();
   const [id] = useState(params?.id ?? null);
   const [medicalHistory, setMedicalHistory] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showDOBPicker, setDOBPicker] = useState(false);
+  const [isEdit] = useState(!!id);
 
   useEffect(() => {
-    if (!!params?.id) {
+    if (isEdit) {
       (async () => {
         const response = await getPetDetails(id);
         dispatch(setSelectedPet(response));
@@ -34,7 +36,7 @@ export default function PetScreen() {
         ]);
       })();
     }
-  }, []);
+  }, [id, isEdit]);
 
   const onRefresh = async () => {
     setIsLoading(true);
@@ -50,16 +52,18 @@ export default function PetScreen() {
 
   const savePress = async () => {
     let response;
-    if (!!id) {
+    if (isEdit) {
       response = await editPet(id, petName, animalType, dob, breed);
     } else {
       response = await addPet(petName, animalType, dob, breed);
     }
+    getPets();
     router.dismissTo({ pathname: `/pets/PetsScreen` });
   };
 
   const deletePress = async () => {
     const response = await deletePet(id);
+    getPets();
     router.dismissTo({ pathname: `/pets/PetsScreen` });
   };
 
@@ -104,6 +108,7 @@ export default function PetScreen() {
       dob={dob}
       onChangeDate={onChangeDate}
       setShowDOBPicker={setDOBPicker}
+      isEdit={isEdit}
     />
   );
 }
