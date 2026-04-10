@@ -13,15 +13,15 @@ export default function RootLayout() {
         <Stack.Screen name="index" options={{ title: "Novellia Pets" }} />
         <Stack.Screen
           name="pets/PetsScreen"
-          options={{ title: "Novellia Pets" }}
+          options={{ title: "Novellia Pets", animation: "fade" }}
         />
         <Stack.Screen
           name="pet/PetScreen"
-          options={{ title: "Novellia Pets" }}
+          options={{ title: "Novellia Pets", animation: "fade" }}
         />
         <Stack.Screen
           name="medicalHistory/MedicalHistoryScreen"
-          options={{ title: "Novellia Pets" }}
+          options={{ title: "Novellia Pets", animation: "fade" }}
         />
       </Stack>
     </Provider>

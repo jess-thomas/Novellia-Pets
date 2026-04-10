@@ -121,7 +121,6 @@ export default function MedicalHistoryScreen() {
   };
 
   const onChangeDate = (event, newDate) => {
-    console.warn(pet);
     if (newDate) {
       setVaccineDate(newDate);
     }
