@@ -1,11 +1,16 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { getPetImage } from "../petsUtils";
+
 export default function Item({ name, type, onDetailPress, id }) {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => onDetailPress(id)}>
-        <View>
-          <Text style={styles.title}>{name}</Text>
-          <Text style={styles.subHeader}>Type: {type}</Text>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Image source={getPetImage(type)} style={styles.image} />
+          <View>
+            <Text style={styles.title}>{name}</Text>
+            <Text style={styles.subHeader}>Type: {type}</Text>
+          </View>
         </View>
       </TouchableOpacity>
     </View>
@@ -29,5 +34,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "500",
     marginVertical: 10,
+  },
+  image: {
+    width: 50,
+    height: 50,
+    marginRight: 10,
+    borderWidth: 2,
+    borderColor: "#052b53",
+    borderRadius: 8,
   },
 });
