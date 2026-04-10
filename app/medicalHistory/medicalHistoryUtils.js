@@ -37,9 +37,11 @@ export const getInitialVaccineValues = (type, pet, id) => {
     const vaccine = pet?.vaccines?.find((item) => item.id == id);
     name = vaccine?.name ?? "";
     const isEdit = !!vaccine;
+    console.warn(isEdit);
     administeredDate = isEdit
       ? new Date(vaccine?.dateAdministered)
       : new Date();
+    console.warn(administeredDate);
   }
   return { name, administeredDate };
 };
