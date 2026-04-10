@@ -21,3 +21,5 @@ React-Native app, created using Expo
    ```
    npm start
    ```
+
+note - to run on external device - http://10.0.0.12
