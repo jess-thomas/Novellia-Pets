@@ -1,5 +1,5 @@
 export async function login(username) {
-  const response = await fetch("http://10.0.0.12:3000/login", {
+  const response = await fetch("http://localhost:3000/login", {
     method: "POST",
     headers: {
       Accept: "application/json",

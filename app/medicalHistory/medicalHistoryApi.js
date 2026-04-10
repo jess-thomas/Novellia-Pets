@@ -1,5 +1,5 @@
 export async function addVaccine(name, date, id) {
-  const response = await fetch(`http://10.0.0.12:3000/pets/${id}/vaccines`, {
+  const response = await fetch(`http://localhost:3000/pets/${id}/vaccines`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -22,7 +22,7 @@ export async function addVaccine(name, date, id) {
 }
 
 export async function addMedication(name, dosage, instructions, id) {
-  const response = await fetch(`http://10.0.0.12:3000/pets/${id}/medications`, {
+  const response = await fetch(`http://localhost:3000/pets/${id}/medications`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -46,7 +46,7 @@ export async function addMedication(name, dosage, instructions, id) {
 }
 
 export async function addAllergy(name, reactions, severity, id) {
-  const response = await fetch(`http://10.0.0.12:3000/pets/${id}/allergies`, {
+  const response = await fetch(`http://localhost:3000/pets/${id}/allergies`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -71,7 +71,7 @@ export async function addAllergy(name, reactions, severity, id) {
 
 export async function deleteMedication(id, medicationId) {
   const response = await fetch(
-    `http://10.0.0.12:3000/pets/${id}/medications/${medicationId}`,
+    `http://localhost:3000/pets/${id}/medications/${medicationId}`,
     {
       method: "DELETE",
       headers: {
@@ -93,7 +93,7 @@ export async function deleteMedication(id, medicationId) {
 
 export async function deleteVaccine(id, vaccineId) {
   const response = await fetch(
-    `http://10.0.0.12:3000/pets/${id}/vaccines/${vaccineId}`,
+    `http://localhost:3000/pets/${id}/vaccines/${vaccineId}`,
     {
       method: "DELETE",
       headers: {
@@ -115,7 +115,7 @@ export async function deleteVaccine(id, vaccineId) {
 
 export async function deleteAllergy(id, allergyId) {
   const response = await fetch(
-    `http://10.0.0.12:3000/pets/${id}/allergies/${allergyId}`,
+    `http://localhost:3000/pets/${id}/allergies/${allergyId}`,
     {
       method: "DELETE",
       headers: {
@@ -137,7 +137,7 @@ export async function deleteAllergy(id, allergyId) {
 
 export async function editAllergy(name, reactions, severity, id, allergyId) {
   const response = await fetch(
-    `http://10.0.0.12:3000/pets/${id}/allergies/${allergyId}`,
+    `http://localhost:3000/pets/${id}/allergies/${allergyId}`,
     {
       method: "PUT",
       headers: {
@@ -169,7 +169,7 @@ export async function editMedication(
   medicationID,
 ) {
   const response = await fetch(
-    `http://10.0.0.12:3000/pets/${id}/medications/${medicationID}`,
+    `http://localhost:3000/pets/${id}/medications/${medicationID}`,
     {
       method: "PUT",
       headers: {
@@ -195,7 +195,7 @@ export async function editMedication(
 }
 export async function editVaccine(name, date, id, vaccineID) {
   const response = await fetch(
-    `http://10.0.0.12:3000/pets/${id}/vaccines/${vaccineID}`,
+    `http://localhost:3000/pets/${id}/vaccines/${vaccineID}`,
     {
       method: "PUT",
       headers: {

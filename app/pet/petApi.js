@@ -1,5 +1,5 @@
 export async function addPet(name, type, dob, breed) {
-  const response = await fetch("http://10.0.0.12:3000/pets", {
+  const response = await fetch("http://localhost:3000/pets", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -24,7 +24,7 @@ export async function addPet(name, type, dob, breed) {
 }
 
 export async function deletePet(id) {
-  const response = await fetch(`http://10.0.0.12:3000/pets/${id}`, {
+  const response = await fetch(`http://localhost:3000/pets/${id}`, {
     method: "DELETE",
     headers: {
       Accept: "application/json",
@@ -42,7 +42,7 @@ export async function deletePet(id) {
 }
 
 export async function getPetDetails(id) {
-  const response = await fetch(`http://10.0.0.12:3000/pets/${id}`, {
+  const response = await fetch(`http://localhost:3000/pets/${id}`, {
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -60,7 +60,7 @@ export async function getPetDetails(id) {
 }
 
 export async function editPet(id, name, type, dob, breed) {
-  const response = await fetch(`http://10.0.0.12:3000/pets/${id}`, {
+  const response = await fetch(`http://localhost:3000/pets/${id}`, {
     method: "PUT",
     headers: {
       Accept: "application/json",
