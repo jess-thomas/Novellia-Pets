@@ -1,24 +1,40 @@
-import { SET_SELECTED_PET, SET_SELECTED_PET_ID } from "./petUtils.js";
+import { createSlice } from "@reduxjs/toolkit";
+import { getPetDetailsThunk } from "./petApi";
+
 const initialState = {
   selectedPetID: null,
   selectedPet: {},
+  isLoading: false,
+  error: null,
 };
 
-const petReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case SET_SELECTED_PET_ID:
-      return {
-        ...state,
-        selectedPetID: action.payload,
-      };
-    case SET_SELECTED_PET:
-      return {
-        ...state,
-        selectedPet: action.payload,
-      };
-    default:
-      return state;
-  }
-};
+const petSlice = createSlice({
+  name: "pet",
+  initialState,
+  reducers: {
+    setSelectedPetId: (state, action) => {
+      state.selectedPetID = action.payload;
+    },
+    setSelectedPet: (state, action) => {
+      state.selectedPet = action.payload;
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getPetDetailsThunk.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getPetDetailsThunk.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.selectedPet = action.payload;
+      })
+      .addCase(getPetDetailsThunk.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+      });
+  },
+});
 
-export default petReducer;
+export const { setSelectedPetId, setSelectedPet } = petSlice.actions;
+export default petSlice.reducer;

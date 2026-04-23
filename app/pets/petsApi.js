@@ -1,5 +1,5 @@
 export async function getPets() {
-  const response = await fetch("http://localhost:3000/pets", {
+  const response = await fetch("http://10.0.0.12:3000/pets", {
     method: "GET",
     headers: {
       Accept: "application/json",

@@ -1,14 +1,15 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getPets } from "../pets/petsApi";
 import PetScreenView from "./PetScreen.view";
 import { setSelectedPet } from "./petActions";
-import { addPet, deletePet, editPet, getPetDetails } from "./petApi";
+import { addPet, deletePet, editPet, getPetDetailsThunk } from "./petApi";
 
 export default function PetScreen() {
   const dispatch = useDispatch();
   const router = useRouter();
+  const { isLoading } = useSelector((state) => state.pet);
   const [petName, setPetName] = useState("");
   const [breed, setBreed] = useState("");
   const [animalType, setAnimalType] = useState("dog");
@@ -16,38 +17,37 @@ export default function PetScreen() {
   const params = useLocalSearchParams();
   const [id] = useState(params?.id ?? null);
   const [medicalHistory, setMedicalHistory] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [showDOBPicker, setDOBPicker] = useState(false);
   const [isEdit] = useState(!!id);
 
   useEffect(() => {
     if (isEdit) {
-      (async () => {
-        const response = await getPetDetails(id);
-        dispatch(setSelectedPet(response));
-        setPetName(response.name);
-        setAnimalType(response.type);
-        setDOB(new Date(response.dob));
-        setBreed(response.breed);
-        setMedicalHistory([
-          { title: "Vaccines", data: response.vaccines },
-          { title: "Medications", data: response.medications },
-          { title: "Allergies", data: response.allergies },
-        ]);
-      })();
+      dispatch(getPetDetailsThunk(id)).then((action) => {
+        if (action.payload) {
+          dispatch(setSelectedPet(action.payload));
+          setPetName(action.payload.name);
+          setAnimalType(action.payload.type);
+          setDOB(new Date(action.payload.dob));
+          setBreed(action.payload.breed);
+          setMedicalHistory([
+            { title: "Vaccines", data: action.payload.vaccines },
+            { title: "Medications", data: action.payload.medications },
+            { title: "Allergies", data: action.payload.allergies },
+          ]);
+        }
+      });
     }
-  }, [id, isEdit]);
+  }, [id, isEdit, dispatch]);
 
   const onRefresh = async () => {
-    setIsLoading(true);
-    const response = await getPetDetails(id);
-    dispatch(setSelectedPet(response));
-    setMedicalHistory([
-      { title: "Vaccines", data: response.vaccines },
-      { title: "Medications", data: response.medications },
-      { title: "Allergies", data: response.allergies },
-    ]);
-    setIsLoading(false);
+    const action = await dispatch(getPetDetailsThunk(id));
+    if (action.payload) {
+      setMedicalHistory([
+        { title: "Vaccines", data: action.payload.vaccines },
+        { title: "Medications", data: action.payload.medications },
+        { title: "Allergies", data: action.payload.allergies },
+      ]);
+    }
   };
 
   const savePress = async () => {
