@@ -1,4 +1,4 @@
-# Welcome to Novellia Pets
+# Welcome to Pets
 
 React-Native app, created using Expo
 
